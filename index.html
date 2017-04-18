@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Tabbed Slide box</title>
+
+        <!-- ionic css -->
+        <link href="http://code.ionicframework.com/1.0.0-rc.4/css/ionic.css" rel="stylesheet">
+
+        <!-- your app's css -->
+        <link href="tabSlideBox.css" rel="stylesheet">
+        <link rel="stylesheet" href="front/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="front/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" href="front/css/style.css" type="text/css">
+        <link rel="stylesheet" href="front/css/flex.css" type="text/css">
+        <link rel="stylesheet" href="front/css/login.css" type="text/css">
+        <link rel="stylesheet" href="front/font-awesome/css/font-awesome.css">
+
+        <!-- ionic/angularjs scripts -->
+        <script src="http://code.ionicframework.com/1.0.0-rc.4/js/ionic.bundle.min.js"></script>
+
+        <script src="tabSlideBox.js"></script>
+        <script src="includes/jquery/dist/jquery.min.js"></script>
+        <!--<script src="tabSlideBox.js"></script>-->
+
+        <!-- your app's script -->
+        <script>
+//            var url = "http://indianmusiclab/index.php/Api";
+
+            var app = angular.module('slidebox', ['ionic', 'tabSlideBox'])
+                    .run(['$q', '$http', '$rootScope', '$location', '$window', '$timeout',
+                            function($q, $http, $rootScope, $location, $window, $timeout){
+
+                            $rootScope.$on("$locationChangeStart", function(event, next, current){
+                            $rootScope.error = null;
+                            console.log("Route change!!!", $location.path());
+                            var path = $location.path();
+                            console.log("App Loaded!!!");
+                            });
+                            }
+                    ]);
+            app.config(function($stateProvider, $urlRouterProvider) {
+            $stateProvider.state('index', {
+            url : '/',
+                    templateUrl : 'index.html',
+                    controller : 'IndexCtrl'
+            });
+            $urlRouterProvider.otherwise("/");
+            });
+            app.controller("IndexCtrl", ['$rootScope', "$scope", "$stateParams", "$q", "$location", "$window", '$timeout',
+                    function($rootScope, $scope, $stateParams, $q, $location, $window, $timeout){
+                    $scope.onSlideMove = function(data){
+//                    alert("You have selected " + data.index + " tab");
+
+                    get_data(data.index);
+                    };
+                    }
+            ]);
+        </script>
+
+
+
+        <style>
+            .slider-slide h3{
+                color:#fff;
+                margin-top:10px;
+            }
+            .scroll{
+                height:100%;
+            }
+
+            .tabbed-slidebox .tsb-icons:after{
+                display:none;
+            }
+            .bar .title.title-left {
+                text-align: center;
+            }
+            .wrapper {padding-top:50%;height:0;position:relative;}
+            .inner{position:absolute;left:0;top:0;right:0;bottom:0;}
+            .post_views{
+                background-color: #ffffff;
+                color: #cccccc !important;
+                font-size: 18px;
+                padding: 8px 20px;
+                text-align: left;
+                border: 1px groove #8d8585;
+                border-radius: 5px;
+                box-shadow: 3px 4px 16px #ddd9d9;
+                margin: 5px 0 1px 0!important;
+            }
+        </style>
+
+    </head>
+
+    <body ng-app="slidebox" animation="slide-left-right-ios7">
+
+    <ion-nav-bar class="nav-title-slide-ios7 bar-positive">
+        <ion-nav-back-button class="button-icon ion-arrow-left-c">
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-nav-view ng-controller="IndexCtrl"></ion-nav-view>
+
+    <script id="index.html" type="text/ng-template">
+        <ion-view class="main-view" title="Indian Music Lab">
+        <ion-content scroll="false">
+
+        <tab-slide-box tab="0">
+
+        <div class="tsb-icons">
+        <div class="tsb-ic-wrp">
+        <a href="javascript:;" class="ion-home"></a>
+        <a href="javascript:;" class="ion-ios-paper"></a>
+        <a href="javascript:;" class="ion-person"></a>
+        <a href="javascript:;" class="ion-log-in"></a>
+        </div>
+        </div>
+        <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+        <ion-slide>
+        <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
+        <div id="artist" class="artist" style="text-align:center;"></div>
+        </ion-scroll>
+        </ion-slide>
+        <ion-slide>
+        <h3 class="post_views">Post Your Views</h3>
+        <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
+        <div id="public_wall"></div>
+        </ion-scroll>
+        </ion-slide>
+        <ion-slide>
+        <h3>Profile</h3>
+        <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
+        <div id="profile"></div>
+        <div id="login form">
+        <div class="login-page">
+  <div class="form">
+    <form class="register-form">
+      <input type="text" placeholder="Username"/>
+      <input type="text" placeholder="First Name"/>
+      <input type="text" placeholder="Last Name"/>
+      <input type="text" placeholder="Email Address"/>
+      <input type="password" placeholder="Password"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <form class="login-form">
+      <input type="text" placeholder="username"/>
+      <input type="password" placeholder="password"/>
+      <button>login</button>
+      <p class="message">Not registered? <a href="#" onclick="toggle_form();">Create an account</a></p>
+    </form>
+  </div>
+</div>
+        </div>
+        </ion-scroll>
+        </ion-slide>
+        </ion-slide-box>
+        </tab-slide-box>
+        </ion-content>
+        </ion-view>
+        <div id="video_page">
+        <!--<div style="margin-top: 50px;"><a href="javascript:;" onclick="switch_back();">back</a></div>-->
+        <div id="video_page_header"></div>
+        <div id="video_page_footer"></div>
+
+        </div>
+    </script>
+    <!--    <script id="index.html" type="text/ng-template">
+            <ion-view class="video-view" title="Indian Music Lab" style="display:none">
+            <ion-content scroll="false">
+    
+            <tab-slide-box tab="0">
+    
+            
+            <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+            <ion-slide>
+            <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
+            <div id="video_page">
+            <div style="margin-top: 50px;"><a href="javascript:;" onclick="switch_back();">back</a></div>
+            <div id="video_page_header"></div>
+            <div id="video_page_footer"></div>
+    
+            </div>
+            </ion-scroll>
+            </ion-slide>
+            </ion-slide>
+            </ion-slide-box>
+            </tab-slide-box>
+            </ion-content>
+            </ion-view>
+            
+        </script>-->
+
+    <script src="front/js/jquery.js" type="text/javascript"></script>
+    <script src="front/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="includes/js/custom.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+        get_videos();
+        });
+        function toggle_form(){
+        $('.message a').click(function(){
+//        alert();
+        
+        $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        });
+        }
+
+    </script>
+</body>
+</html>
