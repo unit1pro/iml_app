@@ -453,3 +453,105 @@ function get_post(data) {
     });
 }
 
+function likeFunction(element, commentId) {
+
+        var post_type = $(element).data('post_type');
+        var response_type = $(element).data('response_type');
+//        var userid = '<?php echo $_SESSION['user_data']['UID']; ?>';
+
+//        if (userid) {
+            $.ajax({
+                'url': url,
+                'data': {'action':'like','data':{'comment_id': commentId, 'post_type': post_type, 'response_type': response_type, 'userid': userid}},
+                'type': 'post',
+                success: function (result) {
+                    var obj = $.parseJSON(result);
+                    console.log(obj);
+                    if (obj.msg == '1') {
+                        $(element).find('i').addClass('liked');
+                        $(element).parent().next().find('.dislike_button').find('i').removeClass('disliked');
+                    } else if (obj.msg == '2') {
+                        $(element).find('i').addClass('disliked');
+                        $(element).parent().prev().find('.like_button').find('i').removeClass('liked');
+                    } else {
+                        $(element).find('i').removeClass('liked');
+                        $(element).find('i').removeClass('disliked');
+
+                    }
+                    if (obj.likeCount != 0) {
+                        $(element).parent().parent().find(".like_count_span").html(obj.likeCount + ' Likes');
+                    } else {
+                        $(element).parent().parent().find(".like_count_span").html('');
+                    }
+                    if (obj.dislikeCount != 0) {
+                        $(element).parent().parent().find('.dislike_count_span').html(obj.dislikeCount + ' Dislikes');
+                    } else {
+                        $(element).parent().parent().find('.dislike_count_span').html('');
+                    }
+                }
+            });
+
+////        } else {
+//            alert('Please Login to use the Service!!!');
+//        }
+    }
+    function checkValid(form){
+        
+        var formId = $(form).attr('id');
+        console.log(formId);
+            var valid = 1
+            var required = 1;
+            $('#'+formId+' .autocheck').each(function(){
+                if(!$(this).attr('data-valid')){
+                        valid = 0;
+                }
+            });
+            $('#'+formId+' .require').each(function(){
+                if($(this).val() == ''){
+                        $(this).css('border','1px solid #ff0000');
+                        required = 0;
+                }
+            });
+            if(!valid || !required){
+                // alert("Please fill all the required fields and enter unique username and email");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+    function register_user(element){
+        var valid = checkValid($(element).parent());
+        if(valid){
+            var username = $(element).parent().find('#UserName').val();
+            var firstName = $(element).parent().find('#FirstName').val();
+            var lastName = $(element).parent().find('#LastName').val();
+            var email = $(element).parent().find('#Email').val();
+            var password = $(element).parent().find('#Password').val();
+
+            $.ajax({
+                'url': url,
+                'data': {'action':'register','data':{'UserName': username, 'FirstName': firstName, 'LastName': lastName, 'Email': email, 'Password': password, 'UserType': '4'}},
+                'type': 'post',
+                success: function (result) {
+                    var obj = $.parseJSON(result);
+                    localStorage.setItem("username", obj.user_data);
+                    localStorage.setItem("login_status", '1');
+                }
+            });
+        }
+    }
+
+    function login_user(element){
+        var valid = checkValid($(element).parent());
+        console.log(valid);
+        if(valid){
+            var login_user_name = $(element).parent().find('#l_username').val();
+            var login_password = $(element).parent().find('#l_password').val();           
+        }
+    }
+
+    function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
