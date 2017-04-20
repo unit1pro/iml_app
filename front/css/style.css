@@ -17,6 +17,18 @@ body {
 img{
     max-width: 100%;
 }
+/*
+* === Rajkumar ===
+*/
+.liked{
+    color:#74db67 !important;
+}
+.disliked{
+    color:#a83030 !important;
+}
+/*
+* === X X X ===
+*/
 .container {
     max-width: 1170px !important;
     width: 100%;
@@ -33,9 +45,9 @@ p {
 body .bg-image {
     background: url(../img/homepage_background.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-        background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 
@@ -58,7 +70,7 @@ header .header-wrapper{
 }
 .comment-section{
     margin: 0 15px 0 25px;
-     padding: 10px 15px;
+    padding: 10px 15px;
 }
 .comment-section audio {
     width: 100%;
@@ -102,17 +114,17 @@ header .header-wrapper{
     margin-right: 10px;
 }
 .user-comments{
- 
+
     background: #F9F9FB; 
 }
 .user-detail{
-     padding-bottom:5px;
+    padding-bottom:5px;
 }
 .comment-wrap {
     color: #337ab7;
-     background: #F9F9FB;
-     padding: 5px 0;
-     font-size: 13px;
+    background: #F9F9FB;
+    padding: 5px 0;
+    font-size: 13px;
 }
 .user-comments img {
     width: 37px;
@@ -128,7 +140,7 @@ span.user-name {
     top: 9px;
     right: 0;
     margin: 0 5px;
-     color: #C1C4CD; 
+    color: #C1C4CD; 
     opacity: .6;
 }
 .input-area i.fa.fa-camera {
@@ -178,10 +190,10 @@ span.user-name1 {
     box-shadow: 0 1px 1px 0 #C1C4CD;
 }
 .hour-count , .no-count{
-  color: #C1C4CD;  
+    color: #C1C4CD;  
 }
 #hexagon {
-	       width: 257px;
+    width: 257px;
     height: 167px;    
     background: #E14222;
     position: relative;
@@ -189,9 +201,9 @@ span.user-name1 {
 }
 
 #hexagon:before {
-	content: "";
-	position: absolute;
-	top: -39px;
+    content: "";
+    position: absolute;
+    top: -39px;
     left: 0;
     width: 0;
     height: 0;
@@ -200,9 +212,9 @@ span.user-name1 {
     border-bottom: 39px solid #E14222;
 }
 #hexagon:after {
-	content: "";
-	position: absolute;
-	bottom: -39px;
+    content: "";
+    position: absolute;
+    bottom: -39px;
     left: 0;
     width: 0;
     height: 0;
@@ -305,7 +317,7 @@ button.subscripe {
     margin-bottom: 10px;
 }
 .user-comments-youtube .fa-ellipsis-v{
-        color: #ccc;
+    color: #ccc;
     font-size: 18px;
 }
 .user-comments-youtube .sub-comment img {
@@ -359,19 +371,19 @@ element.style {
     /*width: 89%;*/
 }
 
-   .login-part a {
+.login-part a {
     color: #fff;
     text-align: center;
     cursor: pointer;
     margin-left: -29px;
-    
+
 }
 .chek-box{
     top:-4px;
-   
+
 }
 .chek-box input{
-     width: auto !important;
+    width: auto !important;
 }
 button:focus {
     outline:none;
@@ -383,7 +395,7 @@ button:focus {
     margin-left: -32px
 }
 .login-abo > span{
-       color: #fff;
+    color: #fff;
     padding: 10px 0;
     margin-left: -21px;
 }
@@ -419,8 +431,8 @@ button.btn-sign {
 .login-part >div.login-abo {
     position: absolute;
     top: 6%;
-     left: 25%; 
-     width: 57%; 
+    left: 25%; 
+    width: 57%; 
     text-align: center;
 }
 .login-abo.signup-abo > span {
@@ -443,336 +455,338 @@ button.btn-sign {
     top: 7px;
 }
 @media screen and (max-width:1150px){
- 
-.login-abo > span {
-    color: #fff;
-    padding: 10px 0;
-    margin-left: -21px;
-}
-.login-abo > i {
-    color: #fff;
-    font-size: 24px;
-    margin-left: -32px;
-}
+
+    .login-abo > span {
+        color: #fff;
+        padding: 10px 0;
+        margin-left: -21px;
+    }
+    .login-abo > i {
+        color: #fff;
+        font-size: 24px;
+        margin-left: -32px;
+    }
 }
 @media screen and (max-width:1120px){
-  
-.area-input i {
-    position: absolute;
-    left: 5px;
-    z-index: 999;
-    color: #000;
-    top: 8px;
-}
-.login-part >div input {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 3px 0 3px 25px;
-    margin-bottom: 6px;
-    width: 100%;
-}
-.login-abo > span {
-    color: #fff;
-    padding: 7px 0;
-    margin-left: -21px;
-}
-.login-abo > i {
-    color: #fff;
-    font-size: 20px;
-    margin-left: -32px;
-}
+
+    .area-input i {
+        position: absolute;
+        left: 5px;
+        z-index: 999;
+        color: #000;
+        top: 8px;
+    }
+    .login-part >div input {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 3px 0 3px 25px;
+        margin-bottom: 6px;
+        width: 100%;
+    }
+    .login-abo > span {
+        color: #fff;
+        padding: 7px 0;
+        margin-left: -21px;
+    }
+    .login-abo > i {
+        color: #fff;
+        font-size: 20px;
+        margin-left: -32px;
+    }
 
 }
 @media screen and (max-width:1020px){
     .login-btn {
-    position: absolute;
-    border: 0;
-    bottom: -28%;
-    padding: -3px;
-    font-size: 0;
-    background: transparent;
-    right: -36px;
-    width: 50%;
-}
-.login-part a {
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-    margin-left: -29px;
-    font-size: 11px;
-}
+        position: absolute;
+        border: 0;
+        bottom: -28%;
+        padding: -3px;
+        font-size: 0;
+        background: transparent;
+        right: -36px;
+        width: 50%;
+    }
+    .login-part a {
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+        margin-left: -29px;
+        font-size: 11px;
+    }
 }
 @media screen and (max-width:980px){
-   
-.login-part a {
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-    margin-left: -17px;
-    font-size: 12px;
-}
 
-.login-abo > span {
-    color: #fff;
-    padding: 0;
-    margin-left: -21px;
-}
-.login-part.layout-column.layout-align-center-center {
-    position: relative;
-    margin-top: 21%;
-    padding: 0 23px;
-}  
-.login-abo.signup-abo > span {
-    color: #fff;
-    padding: 0;
-    margin-left: -21px;
-}
+    .login-part a {
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+        margin-left: -17px;
+        font-size: 12px;
+    }
+
+    .login-abo > span {
+        color: #fff;
+        padding: 0;
+        margin-left: -21px;
+    }
+    .login-part.layout-column.layout-align-center-center {
+        position: relative;
+        margin-top: 21%;
+        padding: 0 23px;
+    }  
+    .login-abo.signup-abo > span {
+        color: #fff;
+        padding: 0;
+        margin-left: -21px;
+    }
 }
 @media screen and (max-width:920px){
 
-.youtube-more-section video {
- 
-    height: 127px;
-    width: 100px;
-}
-.login-part .signup-abo >div input {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 1px 20px;
-    margin-bottom: 6px;
-    width: 90%;
-}
+    .youtube-more-section video {
+
+        height: 127px;
+        width: 100px;
+    }
+    .login-part .signup-abo >div input {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 1px 20px;
+        margin-bottom: 6px;
+        width: 90%;
+    }
 
 }
 @media screen and (max-width:840px){
-.login-btn {
-    position: absolute;
-    border: 0;
-    bottom: -21%;
-    padding: -3px;
-    font-size: 0;
-    background: transparent;
-    right: -36px;
-    width: 50%;
-}
-.imgg-abo-2 {
-    position: absolute;
-    left: 4px;
-    top: 10%;
-    width: 26%;
-}
-.login-part.layout-column.layout-align-center-center {
-    position: relative;
-    margin-top: 21%;
-    padding: 0 19px;
-}
-.login-part .signup-abo >div input {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 1px 20px;
-    margin-bottom: 6px;
-    width: 90%;
-    height: 21px;
-}
-.login-abo.signup-abo > span {
-    color: #fff;
-    padding: 0;
-    margin-left: -21px;
-    font-size: 12px;
-}
-.login-abo > i {
-    color: #fff;
-    font-size: 14px;
-    margin-left: -32px;
-}
+    .login-btn {
+        position: absolute;
+        border: 0;
+        bottom: -21%;
+        padding: -3px;
+        font-size: 0;
+        background: transparent;
+        right: -36px;
+        width: 50%;
+    }
+    .imgg-abo-2 {
+        position: absolute;
+        left: 4px;
+        top: 10%;
+        width: 26%;
+    }
+    .login-part.layout-column.layout-align-center-center {
+        position: relative;
+        margin-top: 21%;
+        padding: 0 19px;
+    }
+    .login-part .signup-abo >div input {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 1px 20px;
+        margin-bottom: 6px;
+        width: 90%;
+        height: 21px;
+    }
+    .login-abo.signup-abo > span {
+        color: #fff;
+        padding: 0;
+        margin-left: -21px;
+        font-size: 12px;
+    }
+    .login-abo > i {
+        color: #fff;
+        font-size: 14px;
+        margin-left: -32px;
+    }
 }
 
 @media screen and (max-width:767px){
     .login-part .signup-abo >div input {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 4px 20px;
-    margin-bottom: 6px;
-    width: 90%;
-    height: auto;
-}
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 4px 20px;
+        margin-bottom: 6px;
+        width: 90%;
+        height: auto;
+    }
     .comment-section {
-    margin: 0;
-    padding: 10px 15px;
-}
-.profile-section {
-    margin-top: 20px;
-}
-.more-video-secton {
-    margin-left: 0px;
-}
+        margin: 0;
+        padding: 10px 15px;
+    }
+    .profile-section {
+        margin-top: 20px;
+    }
+    .more-video-secton {
+        margin-left: 0px;
+    }
 
-.youtube-more-section video {
- 
-    height: 127px;
-    width: 350px;
-}
-.login-abo > i{
-    color: #fff;
-    font-size: 31px;
-    margin-left: -32px
-}
-.login-abo > span {
-    color: #fff;
-    padding: 17px 0;
-    margin-left: -21px;
-}
-.login-btn.img {
-    position: absolute;
-    border: 0;
-    top: 73%;
-    right: 4%;
-    padding: 0;
-    font-size: 0;
-    background: transparent;
-    width: 26%;
-}
-button.btn-sign {
-    position: absolute;
-    top: 7%;
-    left: -45%;
-    font-size: 0;
-    background: transparent;
-    border: 0;
-    width: 52%;
-}
-.login-btn {
-    position: absolute;
-    border: 0;
-    bottom: -37%;
-    padding: -3px;
-    font-size: 0;
-    background: transparent;
-    right: -54px;
-    width: 50%;
-}
-.login-part >div.login-abo {
-    position: absolute;
-    top: 6%;
-     left: 25%; 
-     width: 57%; 
-    text-align: center;
-}
-.login-part.layout-column.layout-align-center-center {
-    position: relative;
-    margin-top: 21%;
-    padding: 0 42px 42px 42px;
-}
+    .youtube-more-section video {
 
-.imgg-abo {
-    position: absolute;
-    max-width: 48% !important;
-    top: -13%;
-    left: 0%;
-}
-.imgg-abo-2 {
-    position: absolute;
-    left: 6px;
-    top: 12%;
-    width: 26%;
-}
+        height: 127px;
+        width: 350px;
+    }
+    .login-abo > i{
+        color: #fff;
+        font-size: 31px;
+        margin-left: -32px
+    }
+    .login-abo > span {
+        color: #fff;
+        padding: 17px 0;
+        margin-left: -21px;
+    }
+    .login-btn.img {
+        position: absolute;
+        border: 0;
+        top: 73%;
+        right: 4%;
+        padding: 0;
+        font-size: 0;
+        background: transparent;
+        width: 26%;
+    }
+    button.btn-sign {
+        position: absolute;
+        top: 7%;
+        left: -45%;
+        font-size: 0;
+        background: transparent;
+        border: 0;
+        width: 52%;
+    }
+    .login-btn {
+        position: absolute;
+        border: 0;
+        bottom: -37%;
+        padding: -3px;
+        font-size: 0;
+        background: transparent;
+        right: -54px;
+        width: 50%;
+    }
+    .login-part >div.login-abo {
+        position: absolute;
+        top: 6%;
+        left: 25%; 
+        width: 57%; 
+        text-align: center;
+    }
+    .login-part.layout-column.layout-align-center-center {
+        position: relative;
+        margin-top: 21%;
+        padding: 0 42px 42px 42px;
+    }
 
-element.style {
-}
-.area-input {
-    position: relative;
-    text-align: center;
-    color: #000;
-    /*width: 89%;*/
-}
+    .imgg-abo {
+        position: absolute;
+        max-width: 48% !important;
+        top: -13%;
+        left: 0%;
+    }
+    .imgg-abo-2 {
+        position: absolute;
+        left: 6px;
+        top: 12%;
+        width: 26%;
+    }
 
-   .login-part a {
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-    margin-left: -29px;
-    
-}
-.area-input {
-    position: relative;
-    text-align: center;
-    color: #000;
-    margin: 6px 0px;
-}
+    element.style {
+    }
+    .area-input {
+        position: relative;
+        text-align: center;
+        color: #000;
+        /*width: 89%;*/
+    }
+
+    .login-part a {
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+        margin-left: -29px;
+
+    }
+    .area-input {
+        position: relative;
+        text-align: center;
+        color: #000;
+        margin: 6px 0px;
+    }
 
 }
 @media screen and (max-width:480px){
     .signup-abo .area-input {
-    position: relative;
-    text-align: center;
-    color: #000;
-    margin: 0px 0px;
-}
+        position: relative;
+        text-align: center;
+        color: #000;
+        margin: 0px 0px;
+    }
     .youtube-section .share-it {
- 
-    font-size: 8px;
-}
-.youtube-section .share-it i {
-    margin-right: 5px;
-    color: #C1C4CD;
-    font-size: 13px;
-}
- 
-.youtube-more-section video {
- 
-    height: 127px;
-    width: 70%;
-}
-.header-wrapper .flex-15.logo img {
-    left: -7px;
-}
+
+        font-size: 8px;
+    }
+    .youtube-section .share-it i {
+        margin-right: 5px;
+        color: #C1C4CD;
+        font-size: 13px;
+    }
+
+    .youtube-more-section video {
+
+        height: 127px;
+        width: 70%;
+    }
+    .header-wrapper .flex-15.logo img {
+        left: -7px;
+    }
 
 }
 @media screen and (max-width:360px){
     .signup-abo .area-input i {
-    position: absolute;
-    left: 18px;
-    z-index: 999;
-    color: #000;
-    top: 7px;
-}
-.login-part .signup-abo >div input {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 1px 20px;
-    margin-bottom: 6px;
-    width: 83%;
-}
-.login-abo.signup-abo > span {
-    color: #fff;
-    padding: 0;
-    margin-left: -21px;
-}
-.login-abo.signup-abo > i {
-    color: #fff;
-    font-size: 16px;
-    margin-left: -32px;
-}
+        position: absolute;
+        left: 18px;
+        z-index: 999;
+        color: #000;
+        top: 7px;
+    }
+    .login-part .signup-abo >div input {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 1px 20px;
+        margin-bottom: 6px;
+        width: 83%;
+    }
+    .login-abo.signup-abo > span {
+        color: #fff;
+        padding: 0;
+        margin-left: -21px;
+    }
+    .login-abo.signup-abo > i {
+        color: #fff;
+        font-size: 16px;
+        margin-left: -32px;
+    }
     .area-input {
-    position: relative;
-    text-align: center;
-    color: #000;
-    margin: 0px 0px;
-}
+        position: relative;
+        text-align: center;
+        color: #000;
+        margin: 0px 0px;
+    }
 
- .login-abo > span {
-    color: #fff;
-    padding: 0 0;
-    margin-left: -21px;
-}
-.login-btn {
-    position: absolute;
-    border: 0;
-    bottom: -30%;
-    padding: -3px;
-    font-size: 0;
-    background: transparent;
-    right: -36px;
-    width: 50%;
-}   
+    .login-abo > span {
+        color: #fff;
+        padding: 0 0;
+        margin-left: -21px;
+    }
+    .login-btn {
+        position: absolute;
+        border: 0;
+        bottom: -30%;
+        padding: -3px;
+        font-size: 0;
+        background: transparent;
+        right: -36px;
+        width: 50%;
+    }
+
+
 }

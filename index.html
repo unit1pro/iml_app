@@ -135,31 +135,32 @@
         <div id="profile"></div>
         <div id="login form">
         <div class="login-page">
-  <div class="form">
-    <form class="register-form" id="register-form">
-      <input type="text" id="UserName" class="autocheck require" placeholder="Username " data-valid='0'/>
-      <span id="UserName_msg"></span>
-      <input type="text" id="FirstName" class="require" placeholder="First Name"/>
-      <span id="FirstName_msg"></span>
-      <input type="text" id="LastName" placeholder="Last Name"/>
-      <span id="LastName_msg"></span>
-      <input type="text" id="Email" class="autocheck require email" placeholder="Email Address" data-valid='0'/>
-      <span id="Email_msg"></span>
-      <input type="password" id="Password" class="require" placeholder="Password"/>
-      <span id="Password_msg"></span>
-      <button onclick="register_user(this);" id="register_submit">create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
-    <form class="login-form" id="login-form">
-      <input type="text" id="l_username" class="require" placeholder="username"/>
-      <span id="UserName_msg"></span>
-      <input type="password" id="l_password" class="require" placeholder="password"/>
-      <span id="Password_msg"></span>
-      <button onclick="login_user(this);">login</button>
-      <p class="message">Not registered? <a href="#" onclick="toggle_form();">Create an account</a></p>
-    </form>
-  </div>
-</div>
+        <div class="form">
+        <form class="register-form" id="register-form">
+        <input type="text" id="UserName" class="autocheck require" placeholder="Username " data-valid='0'/>
+        <span id="UserName_msg"></span>
+        <input type="text" id="FirstName" class="require" placeholder="First Name"/>
+        <span id="FirstName_msg"></span>
+        <input type="text" id="LastName" placeholder="Last Name"/>
+        <span id="LastName_msg"></span>
+        <input type="text" id="Email" class="autocheck require email" placeholder="Email Address" data-valid='0'/>
+        <span id="Email_msg"></span>
+        <input type="password" id="Password" class="require" placeholder="Password"/>
+        <span id="Password_msg"></span>
+        <button onclick="register_user(this);" id="register_submit">create</button>
+        <p class="message">Already registered? <a href="#">Sign In</a></p>
+        </form>
+        <form class="login-form" id="login-form">
+        <input type="text" id="l_username" class="require" placeholder="username"/>
+        <span id="UserName_msg"></span>
+        <input type="password" id="l_password" class="require" placeholder="password"/>
+        <span id="Password_msg"></span>
+        <span id="Login_msg"></span>
+        <button onclick="login_user(this);">login</button>
+        <p class="message">Not registered? <a href="#" onclick="toggle_form();">Create an account</a></p>
+        </form>
+        </div>
+        </div>
         </div>
         </ion-scroll>
         </ion-slide>
@@ -206,60 +207,53 @@
     <script>
         $(document).ready(function(){
         get_videos();
-
         $('.autocheck').focusout(function(){
-            var key = this.id;
-            var value = $(this).val();
-            var email=1;
-            // alert(value);
-            $(this).attr('data-valid','0');
-
-            if($(this).hasClass('email')){
-                var email_result = validateEmail($(this).val());
-                if(!email_result){
-                    email = 0;
-                     $('#'+key).css('border','1px solid #ff0000');
-                }
-            }
-             if(email){
-            $.ajax({
-                'url':url,
-                'data':{'action':'autocheck','data':{'key':key,'value':value}},
+        var key = this.id;
+        var value = $(this).val();
+        var email = 1;
+        // alert(value);
+        $(this).attr('data-valid', '0');
+        if ($(this).hasClass('email')){
+        var email_result = validateEmail($(this).val());
+        if (!email_result){
+        email = 0;
+        $('#' + key).css('border', '1px solid #ff0000');
+        }
+        }
+        if (email){
+        $.ajax({
+        'url':url,
+                'data':{'action':'autocheck', 'data':{'key':key, 'value':value}},
                 'type':'post',
                 success: function (result) {
                 var obj = $.parseJSON(result);
                 console.log(obj);
-                if(!obj.success){
-                    $('#'+key).css('border','1px solid #ff0000');
-                    $('#'+key+'_msg').html(obj.msg);
-                }else{
-                    $('#'+key).css('border','1px solid #00ff00');
-                    $('#'+key).attr('data-valid','1');
+                if (!obj.success){
+                $('#' + key).css('border', '1px solid #ff0000');
+                $('#' + key + '_msg').html(obj.msg);
+                } else{
+                $('#' + key).css('border', '1px solid #00ff00');
+                $('#' + key).attr('data-valid', '1');
                 }
-            }
-            });
+                }
+        });
         }
 
         });
-
-        
-
         $('.autocheck').keyup(function(){
-            var key = this.id;
-            // var value = $(this).val();
-            // alert(value);
-            console.log('in');
-            $(this).css('border','none');
-            $('#'+key+'_msg').html('');
-             $(this).attr('data-valid','0');
-            
+        var key = this.id;
+        // var value = $(this).val();
+        // alert(value);
+        console.log('in');
+        $(this).css('border', 'none');
+        $('#' + key + '_msg').html('');
+        $(this).attr('data-valid', '0');
         });
-
         });
         function toggle_form(){
         $('.message a').click(function(){
 //        alert();
-        
+
         $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
         });
         }
