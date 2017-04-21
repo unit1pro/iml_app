@@ -3,6 +3,7 @@ var limit = 4;
 var offset = 0;
 var offset_song = 0;
 
+
 function getQueryStringValue(key) {
     return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
@@ -62,12 +63,9 @@ function resize_image() {
 }
 
 function videoView(song_ID) {
-//    $('.main-view').slideUp();
-//                    $('div.title').hide();
-//    $('ion-header-bar').prepend('<a class="button back_button_show_hide buttons button-icon ion-arrow-left-c" onclick="switch_back(this);"></a>');
     $('ion-header-bar').prepend('<a class="button back_button_show_hide buttons button-icon ion-arrow-left-c" href="index.html"></a>');
-//    $('.video-view').show();
-    var data = {'action': 'get_videos_single', 'data': {'songId': song_ID}};
+    var userid = localStorage.getItem("user_id");
+    var data = {'action': 'get_videos_single', 'data': {'songId': song_ID, 'user_id': userid}};
     $.ajax({
         'url': url,
         'type': 'post',
@@ -87,9 +85,9 @@ function videoView(song_ID) {
             html += '<div class="flex-100 flex-xs-100 layout-column layout-align-start-start">';
             html += '<h4>' + obj.songs_data.Song_Title + '</h4>';
             html += '</div>';
-            //                    html+='<div class="flex-50 flex-xs-100 layout-align-end-end layout-row">';
-            //                        html+='<h4 id="views">'+obj.songs_data.HITS+' views</h4>';
-            //                    html+='</div>';
+            html += '<div class="flex-50 flex-xs-100 layout-align-end-end layout-row">';
+            html += '<h4 id="views">' + obj.songs_data.HITS + ' views</h4>';
+            html += '</div>';
             html += '</div>';
             html += '<div class="layout-row">';
             html += '<div class="topic-detail layout-column">';
@@ -105,23 +103,42 @@ function videoView(song_ID) {
             html += '</span>';
             html += '<span class="layout-row flex-20 layout-align-start-center">';
             html += '</span>';
-            html += '<span class="layout-row flex-50 layout-align-end-center">';
-            html += '<span><i class="fa fa-hand-o-up"></i>888</span> &nbsp;&nbsp;   ';
-            html += '<span><i class="fa fa-hand-o-down"></i>6</span>   ';
-            html += '</span>';
+            html += '<div class="layout-row action-wrapper" style="width:100%">';
+
+            if (obj.songs_data.user_response == '1') {
+                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + song_ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + song_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
+            } else {
+                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + song_ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + song_ID + '"><i class="fa fa-thumbs-up"></i></a>';
+            }
+            html += '<span class="like_count_span">';
+            if (obj.songs_data.total_likes) {
+                html += obj.songs_data.total_likes + ' Likes ';
+            }
+            html += '</span></div>';
+            if (obj.songs_data.user_response == 2) {
+                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + song_ID + ')" data-post_type="1" data-response_type="2" data-commentid="' + song_ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
+            } else {
+                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + song_ID + ')" data-post_type="1" data-response_type="2" data-commentid="' + song_ID + '"><i class="fa fa-thumbs-down"></i></a>';
+            }
+            html += '<span class="dislike_count_span">';
+            if (obj.songs_data.total_dislikes) {
+
+                html += obj.songs_data.total_dislikes + ' Dislikes';
+            }
+            html += '</span></div>';
+            html += '</div>';
+
             html += '</div>';
             html += '</div>';
             html += '</div>';
             var html1 = '';
             html1 += '<div class="layout-column flex-30 flex-xs-100 more-video-secton ">';
             html1 += '<div class="layout-column youtube-more-section">';
-            //                html1+='<p>More Songs</p>';
             html1 += '<div class="flex-25 flex-xs-100 layout-column video-section" style="overflow: hidden;">';
             html1 += '<div style="height: 100%;width: 100%;overflow-y: auto;" class="video-section1">';
             $.each(obj.artistAllVideo, function (index, artistVideo) {
 
                 html1 += '<div class="layout-row">';
-//                html1 += '<a href = "javascript:;" onclick="videoView(' + artistVideo.ID + ')">';
                 html += '<a href = "video.html?songId=' + artistVideo.ID + '">';
                 html1 += '<img src="' + obj.image_base_path + '/' + artistVideo.Image + '" class="album_image">';
                 html1 += '</a>';
@@ -135,7 +152,6 @@ function videoView(song_ID) {
             html1 += '<div class="more_videos" style="display:none">';
             $.each(obj.allVideos, function (index, allVideo) {
                 html1 += '<div class="layout-row">';
-//                html1 += '<a href = "javascript:;" onclick="videoView(' + allVideo.ID + ')">';
                 html1 += '<a href = "video.html?songId=' + allVideo.ID + '">';
                 html1 += '<img src="' + obj.image_base_path + '/' + allVideo.Image + '" class="album_image">';
                 html1 += '</a>';
@@ -151,30 +167,54 @@ function videoView(song_ID) {
             html1 += '</div>';
 
             var commentHtml = '';
+            commentHtml = '<div id="comment_section">';
             $.each(obj.comments, function (index, comment) {
-                commentHtml += '<div class="layout-row user-comments-youtube">';
-                commentHtml += '<img src="' + obj.image_base_path + '/' + comment.Image + '" alt="user-image"/>';
-                commentHtml += '<div class="layout-column user-detail flex-90" id="main_comment">';
-                commentHtml += '<div class="layout-row">';
-                commentHtml += '<div class="layout-column flex-90">';
+
+                var comment_response = comment.user_response;
+                var user_image = obj.base_url + 'uploads/images/user.png';
+                if (comment.Photo != '') {
+                    user_image = obj.base_url + 'uploads/images/' + comment.Photo;
+                }
+                commentHtml += '<div class="layout-row user-comments" style="width:100%;">';
+                commentHtml += '<img src="' + user_image + '" alt="user-image"/>';
+                commentHtml += '<div class="layout-column user-detail" style="width:100%;">';
                 commentHtml += '<div class="layout-row">';
                 commentHtml += '<span class="user-name">' + comment.FirstName + ' ' + comment.LastName + '</span>';
-
+                commentHtml += '<span>' + comment.COMMENTS + '</span>';
                 commentHtml += '</div>';
-                commentHtml += '<div>' + comment.COMMENTS + '</div>';
-                commentHtml += '<div class="layout-row">';
-                commentHtml += '<span class="user-name"><a href="javascript:void(0)" onclick="replyOnComment(this)" >Reply</a> &nbsp; &nbsp;<a href="javascript:void(0)" onclick="likeComment(this)" ><i class="fa fa-thumbs-up"></a></i>&nbsp;  &nbsp; <a href="javascript:void(0)" onclick="dislikeComment(this)" ><i class="fa fa-thumbs-down"></i></a></span>';
+                commentHtml += '<div class="layout-row action-wrapper">';
+                if (comment_response == '1') {
+                    commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comment.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + comment.COM_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
+                } else {
+                    commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comment.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + comment.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
+                }
+                commentHtml += '<span class="like_count_span">';
+                if (comment.like_count) {
+                    commentHtml += comment.like_count + ' Likes';
+                }
+                commentHtml += '</span>';
+                commentHtml += '</div>';
+                if (comment_response == '2') {
+                    commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comment.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + comment.COM_ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
+                } else {
+                    commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comment.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + comment.COM_ID + '"><i class="fa fa-thumbs-down"></i></a>';
+                }
+                commentHtml += '<span class="dislike_count_span">';
+                if (comment.dislike_count) {
+                    commentHtml += comment.dislike_count + ' Dislikes';
+                }
+                commentHtml += '</span>';
                 commentHtml += '</div>';
                 commentHtml += '</div>';
-                commentHtml += '<div class="float-right flex-10 layout-row layout-align-end-start"><i class="fa fa-ellipsis-v"></i></div> ';
                 commentHtml += '</div>';
-
-                commentHtml += '</div>';
+                commentHtml += '<hr>';
                 commentHtml += '</div>';
             });
+            commentHtml += '</div>';
 
             $('#video_page_header').html(html);
             $('#video_page_footer').html(html1);
+            $('#video_page_comment').append(commentHtml);
 
             $('.album_image').each(function () {
 
@@ -185,6 +225,12 @@ function videoView(song_ID) {
                     $(this).attr('height', height);
                 }
             });
+
+            var views = $('#views').html();
+            new_view = views.match(/\d+/)[0];
+            new_view++;
+
+            post_hit_count({'new_view': new_view, 'song_id': song_ID});
         }
     });
 }
@@ -300,8 +346,6 @@ function get_post(data) {
                     }
                     html += '<div class="layout-row action-wrapper">';
                     var response = comments.user_response;
-                    console.log(comments);
-
                     if (comments.song) {
                         if (response == '1') {
                             html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
@@ -609,4 +653,14 @@ function commentSubmit(ele) {
     } else {
         alert('Please Login to user the service.');
     }
+}
+
+function post_hit_count(data) {
+    $.ajax({
+        'url': url,
+        'data': {'action': 'video_views', 'data': {'data': data}},
+        'type': 'post',
+        success: function (result) {
+        }
+    });
 }
