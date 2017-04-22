@@ -116,7 +116,7 @@
         <!--<img src="<?php echo $userImage ?>" alt="user-image"/>-->
         <div class="input-area">
         <textarea name="comment_field" class="comment_field" placeholder="Write a Comments" style="width: 100%" rows="2"></textarea>
-        <a href="javascript:void(0)" class="post_comment"><i class="fa fa-check-circle fa-3x" style="color: #105704;"></i></a>
+        <a href="javascript:void(0)" class="post_comment" onclick="commentSubmit(this)" ><i class="fa fa-check-circle fa-3x" style="color: #105704;"></i></a>
         </div>
         </div>
         </div>
@@ -139,7 +139,17 @@
         $(document).ready(function(){
         var song_id = getQueryStringValue('songId');
         videoView(song_id);
-
+        
+        
+        $('.post_comment').click(function (e) {
+            var user_id = localStorage.getItem("user_id");
+            if (user_id) {
+            var comment = $(this).parent().find('textarea').val();
+            song_comment(comment, user_id, song_id);
+            } else {
+                alert("Please Login to use the service.");
+            }
+            });
         });
     </script>
 </body>

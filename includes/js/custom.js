@@ -664,3 +664,62 @@ function post_hit_count(data) {
         }
     });
 }
+
+function song_comment(comment, user_id, song_id) {
+    if (comment != '' && user_id && song_id) {
+        var data = {'action': 'video_comment', 'data': {'COMMENTS': comment, 'userid': user_id, 'Song_id': song_id}};
+        $.ajax({
+            url: url,
+            data: data,
+            type: 'post',
+            success: function (result) {
+                var obj = $.parseJSON(result);
+                var commentHtml = '';
+                if (obj.success) {
+                    $.each(obj.comment, function (index, comments) {
+                        var comment_response = comments.user_response;
+                        var user_image = obj.base_url + 'uploads/images/user.png';
+                        if (comment.Photo != '') {
+                            user_image = obj.base_url + 'uploads/images/' + comments.Photo;
+                        }
+                        commentHtml += '<div class="layout-row user-comments" style="width:100%;">';
+                        commentHtml += '<img src="' + user_image + '" alt="user-image"/>';
+                        commentHtml += '<div class="layout-column user-detail" style="width:100%;">';
+                        commentHtml += '<div class="layout-row">';
+                        commentHtml += '<span class="user-name">' + comments.FirstName + ' ' + comments.LastName + '</span>';
+                        commentHtml += '<span>' + comments.COMMENTS + '</span>';
+                        commentHtml += '</div>';
+                        commentHtml += '<div class="layout-row action-wrapper">';
+                        if (comment_response == '1') {
+                            commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
+                        } else {
+                            commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
+                        }
+                        commentHtml += '<span class="like_count_span">';
+                        if (comments.like_count) {
+                            commentHtml += comments.like_count + ' Likes';
+                        }
+                        commentHtml += '</span>';
+                        commentHtml += '</div>';
+                        if (comment_response == '2') {
+                            commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
+                        } else {
+                            commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-down"></i></a>';
+                        }
+                        commentHtml += '<span class="dislike_count_span">';
+                        if (comments.dislike_count) {
+                            commentHtml += comments.dislike_count + ' Dislikes';
+                        }
+                        commentHtml += '</span>';
+                        commentHtml += '</div>';
+                        commentHtml += '</div>';
+                        commentHtml += '</div>';
+                        commentHtml += '<hr>';
+                        commentHtml += '</div>';
+                    });
+                    $('#comment_section').prepend(commentHtml);
+                }
+            }
+        });
+    }
+}
