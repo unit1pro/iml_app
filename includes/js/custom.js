@@ -62,6 +62,25 @@ function resize_image() {
     });
 }
 
+function viewPost(post_id) {
+    $('ion-header-bar').prepend('<a class="button back_button_show_hide buttons button-icon ion-arrow-left-c" href="index.html"></a>');
+    var userid = localStorage.getItem("user_id");
+
+    if(userid){
+        var data = {'action':'post_view','data':{'post_id':post_id, 'user_id':userid}};
+        console.log(data);
+        // $.post({
+        //     'url': url,
+        //     'data': data,
+        //     success: function (result) {
+
+        //     }
+        // });        
+    } else {
+        alert('Please login to post your views');
+    }
+}
+
 function videoView(song_ID) {
     $('ion-header-bar').prepend('<a class="button back_button_show_hide buttons button-icon ion-arrow-left-c" href="index.html"></a>');
     var userid = localStorage.getItem("user_id");
@@ -549,6 +568,8 @@ function login_user(element) {
                 if (obj.success == true) {
                     localStorage.setItem("user_id", obj.userData.UID);
                     localStorage.setItem("login_status", true);
+                    $('#login_form').hide();
+                    $('#profile').show();
                 } else if (obj.success == false) {
                     localStorage.setItem("login_status", false);
                     $(element).parent().find('#Login_msg').text(obj.error).css('color', 'red');
@@ -722,4 +743,53 @@ function song_comment(comment, user_id, song_id) {
             }
         });
     }
+}
+
+function profile_show(userid){
+    var data = {'action': 'show_profile', 'data': { 'userid': userid}};
+    $.ajax({
+        url: url,
+        data: data,
+        type: 'post',
+        success: function (result) {
+            var obj = $.parseJSON(result);
+            var profile_html = '';
+            if (obj.success) {
+                $.each(obj.profile_data, function (index, profile) {
+                    var user_image = obj.base_url + 'uploads/images/user.png';
+                    if (profile.Photo != '') {
+                        user_image = obj.base_url + 'uploads/images/' + profile.Photo;
+                    }
+                    profile_html += '<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">';
+                    profile_html += '<div class="well profile">';
+                    profile_html += '<div class="col-sm-12">';
+                    profile_html += '<div class="col-xs-4 pull-left"><figure>';
+                    profile_html += '<img src="'+ user_image +'" alt="" class="img-rounded img-responsive pull-right">';
+                    profile_html += '</figure></div>';
+                    profile_html += '<div class="col-xs-8 pull-right">';
+                    profile_html += '<h2>'+ profile.FirstName +' '+ profile.LastName +'</h2>';
+                    profile_html += '<p><strong>About: </strong> '+ profile.AboutMe +' </p>';
+                    profile_html += '<p><strong>DOB: </strong> '+ profile.DOB +' </p>';
+                    profile_html += '<p><strong>Adrress: </strong>';
+                    profile_html += '<span class="tags">'+profile.City+'</span>';
+                    profile_html += '<span class="tags">'+profile.State+'</span>';
+                    profile_html += '<span class="tags">'+profile.Country+'</span>';
+                    profile_html += '</p></div></div>';
+                    profile_html += '<div class="col-xs-12 divider text-center">';
+                    profile_html += '<div class="col-xs-12 col-sm-4 emphasis">';
+                    profile_html += '<button class="btn btn-danger btn-block" onclick="logout()"><span class="fa fa-sign-out "></span> Logout </button>';
+                    profile_html += '</div></div></div></div>';
+                });
+                $('#profile').append(profile_html);
+
+
+            } 
+        }
+    });
+}
+
+function logout(){
+    localStorage.clear();
+    $('#login_form').show();
+    $('#profile').hide();
 }
