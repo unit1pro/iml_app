@@ -793,3 +793,26 @@ function logout(){
     $('#login_form').show();
     $('#profile').hide();
 }
+
+function UploadFile(file) {
+
+    var xhr = new XMLHttpRequest();
+    if (xhr.upload && file.type == "image/jpeg" && file.size <= $id("MAX_FILE_SIZE").value) {
+        var o = $id("progress");
+        var progress = o.appendChild(document.createElement("p"));
+        progress.appendChild(document.createTextNode("upload " + file.name));
+                xhr.upload.addEventListener("progress", function(e) {
+            var pc = parseInt(100 - (e.loaded / e.total * 100));
+            progress.style.backgroundPosition = pc + "% 0";
+        }, false);
+        xhr.onreadystatechange = function(e) {
+            if (xhr.readyState == 4) {
+                progress.className = (xhr.status == 200 ? "success" : "failure");
+            }
+        };
+        xhr.open("POST", $id("upload").action, true);
+        xhr.setRequestHeader("X-FILENAME", file.name);
+        xhr.send(file);
+    }
+    
+}

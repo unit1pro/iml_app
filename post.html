@@ -23,7 +23,15 @@
         <script src="tabSlideBox.js"></script>
         <script src="includes/jquery/dist/jquery.min.js"></script>
         <!--<script src="tabSlideBox.js"></script>-->
+        <link rel="stylesheet" type="text/css" href="./includes/js/nefty_popup/dist/jquery.niftymodals.css" /> 
+        <script src="./includes/js/nefty_popup/dist/jquery.niftymodals.js"></script>
 
+        <script>
+            var polyfilter_scriptpath = './includes/js/nefty_popup/lib/js/';
+        </script>
+
+        <script src="./includes/js/nefty_popup/lib/js/cssParser.js"></script>
+        <script src="./includes/js/nefty_popup/lib/js/css-filters-polyfill.js"></script>
         <!-- your app's script -->
         <script>
 //            var url = "http://indianmusiclab/index.php/Api";
@@ -57,6 +65,8 @@
                     };
                     }
             ]);
+
+
         </script>
 
 
@@ -89,6 +99,25 @@
                 box-shadow: 3px 4px 16px #ddd9d9;
                 margin: 5px 0 1px 0!important;
             }
+
+            #progress p
+            {
+                display: block;
+                width: 240px;
+                padding: 2px 5px;
+                margin: 2px 0;
+                border: 1px inset #446;
+                border-radius: 5px;
+            }
+            #progress p.success
+            {
+                background: #0c0 none 0 0 no-repeat;
+            }
+
+            #progress p.failed
+            {
+                background: #c00 none 0 0 no-repeat;
+            }
         </style>
 
     </head>
@@ -110,20 +139,20 @@
         <ion-slide>
         <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
         <div id="post_content_area">
-            <div>
-              <label class="item item-input">
-                <textarea placeholder="Post Your Views" rows="8" cols="50"></textarea>
-            </label>
-        </div>
-        <div>
-            for progress bar of attachment upload
-        </div>
-        <div>
-            <label class="item item-input">
-                <input type="file" name="fileToUpload" id="fileToUpload">
-            </label>
-        </div>
-        
+            <form id="view_form">
+                <div class="layout-column comment-section">
+                    <textarea placeholder="Post Your Views Or Songs" class="views"></textarea>
+                </div>
+                <div id="progress">
+                    <p></p>
+                </div>
+                <div>
+                    <label class="item item-input">
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                    </label>
+                </div>
+                <input type="submit" value="Submit" onclick="postView()"></input>
+            </form>
         </div>
         </ion-scroll>
         </ion-slide>
@@ -140,9 +169,20 @@
     <script src="includes/js/custom.js" type="text/javascript"></script>
     <script>
 
-        $(document).ready(function(){
-            viewPost();
-        });
+    $(document).ready(function(){
+        viewPost();
+    });
+
+    function postView(){
+        var data = $('#view_form').serialize();
+        console.log(data);
+    }
+
+    // $( "#view_form" ).on( "submit", function( event ) {
+    //   event.preventDefault();
+    //   console.log( $( this ).serialize() );
+    // });
+
     </script>
 </body>
 </html>
