@@ -14,6 +14,17 @@ function get_data(page) {
     } else if (page == 1) {
         var user_id = localStorage.getItem("user_id");
         get_post({'action': 'getPost', 'data': {'limit': limit, 'offset': offset, 'offset_song': offset_song, 'user_id': user_id}});
+    } else if(page == 2){
+        var userid = localStorage.getItem("user_id");
+                if(userid){
+                    $('#login_form').hide();
+                    $('#profile').show();
+                    profile_show(userid,false);
+                } else {
+                    $('#login_form').show();
+                    $('#profile').hide();
+                }
+       
     }
 }
 
@@ -195,7 +206,7 @@ function videoView(song_ID) {
                     user_image = obj.base_url + 'uploads/images/' + comment.Photo;
                 }
                 commentHtml += '<div class="layout-row user-comments" style="width:100%;">';
-                commentHtml += '<img src="' + user_image + '" alt="user-image"/>';
+                commentHtml += '<a href="profile.html?userId='+comment.UID+'"><span class="profile-img"><img src="' + user_image + '" alt="user-image"/></span></a>';
                 commentHtml += '<div class="layout-column user-detail" style="width:100%;">';
                 commentHtml += '<div class="layout-row">';
                 commentHtml += '<span class="user-name">' + comment.FirstName + ' ' + comment.LastName + '</span>';
@@ -317,8 +328,8 @@ function get_post(data) {
                         html += '<div class="layout-column comment-section" data-post_id = "' + comments.COM_ID + '">';
                     }
                     html += '<div class="layout-row user-comments profile_info" data-location="' + base_url + 'index.php/User/profile/' + comments.UID + '">';
-                    html += '<a href="profile.html?userId='+comments.UID+'"> <img src="' + user_image + '" alt="user-image"/>';
-                    html += '<div class="comment-wrap">' + comments.FirstName + ' ' + comments.LastName + '</div></a>';
+                    html += '<a href="profile.html?userId='+comments.UID+'"><span class="profile-img"><img src="' + user_image + '" alt="user-image"/></span>';
+                    html += '<span class="comment-wrap">' + comments.FirstName + ' ' + comments.LastName + '</span></a>';
                     html += '</div><hr style="    margin-top: 5px;margin-bottom: 5px;">';
                     if (comments.song) {
                         html += '<div class="layout-row user-comments">';
@@ -438,10 +449,10 @@ function get_post(data) {
                                 user_image = base_url + 'uploads/images/' + sc.Photo;
                             }
                             html += '<div class="layout-row user-comments" style="width:100%;">';
-                            html += '<img src="' + user_image + '" alt="user-image"/>';
+                            html += '<a href="profile.html?userId='+sc.UID+'"><span class="profile-img"><img src="' + user_image + '" alt="user-image"/></span></a>';
                             html += '<div class="layout-column user-detail" style="width:100%;">';
                             html += '<div class="layout-row">';
-                            html += '<span class="user-name">' + sc.FirstName + ' ' + sc.LastName + '</span>';
+                            html += '<a href="profile.html?userId='+sc.UID+'"><span class="user-name">' + sc.FirstName + ' ' + sc.LastName + '</span></a>';
                             html += '<span>' + sc.COMMENTS + '</span>';
                             html += '</div>';
                             html += '<div class="layout-row action-wrapper">';
@@ -570,6 +581,8 @@ function login_user(element) {
                     localStorage.setItem("login_status", true);
                     $('#login_form').hide();
                     $('#profile').show();
+                    profile_show(obj.userData.UID,false);
+                    $(element +'input').val('');
                 } else if (obj.success == false) {
                     localStorage.setItem("login_status", false);
                     $(element).parent().find('#Login_msg').text(obj.error).css('color', 'red');
@@ -746,6 +759,7 @@ function song_comment(comment, user_id, song_id) {
 }
 
 function profile_show(userid, public){
+    
     var data = {'action': 'show_profile', 'data': { 'userid': userid}};
     $.ajax({
         url: url,
@@ -793,14 +807,17 @@ function profile_show(userid, public){
                     }
                     profile_html += '</div></div>';
                 });
-                $('#profile').append(profile_html);
+                $('#profile').html(profile_html);
             } 
         }
     });
 }
 
 function logout(){
+    localStorage.setItem("user_id", '');
+    localStorage.setItem("login_status", false);
     localStorage.clear();
     $('#login_form').show();
     $('#profile').hide();
+    // location.reload();
 }

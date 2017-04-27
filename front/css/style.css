@@ -14,9 +14,26 @@ body {
 .text-muted {
     color: #777;
 }
+
 img{
     max-width: 100%;
 }
+
+/*.item-image {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 50%;
+}*/
+.profile-img{
+/*    display: inline-block;
+    height: 100px;
+    width: auto;
+    overflow: hidden;*/
+}
+.profile-img img {
+    object-fit: cover;
+}
+
 /*
 * === Rajkumar ===
 */

@@ -105,6 +105,15 @@
             .dropup .dropdown-menu{margin-bottom:10px}
             .dropup .dropdown-menu:before{content:"";border-top:10px solid #34495e;border-right:10px solid transparent;border-left:10px solid transparent;position:absolute;bottom:-10px;left:50%;margin-left:-10px;z-index:10}
 
+            .image_container {
+              height: 200px;
+              border: dashed blue 1px;
+            }
+
+            .image_container img {
+              max-height: 100%;
+              max-width: 100%;
+            }
         </style>
 
     </head>
@@ -147,12 +156,12 @@
     <script src="includes/js/custom.js" type="text/javascript"></script>
     <script>
 
-        $(document).ready(function(){
+            $(document).ready(function(){
             $('ion-header-bar').prepend('<a class="button back_button_show_hide buttons button-icon ion-arrow-left-c" href="index.html"></a>');
 
             var user_id = getQueryStringValue('userId');
-            profile_show(user_id, 'public');
-        });
+            profile_show(user_id, true);
+            });
     </script>
 </body>
 </html>

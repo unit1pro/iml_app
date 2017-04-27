@@ -226,15 +226,7 @@ span.tags{background:#1abc9c;border-radius:2px;color:#f5f5f5;font-weight:700;pad
             $(document).ready(function(){
                 get_videos();
 
-                var userid = localStorage.getItem("user_id");
-                if(userid){
-                    $('#login_form').hide();
-                    $('#profile').show();
-                    profile_show(userid);
-                } else {
-                    $('#login_form').show();
-                    $('#profile').hide();
-                }
+                
 
                 $('.autocheck').focusout(function(){
                     var key = this.id;
