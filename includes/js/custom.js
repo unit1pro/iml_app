@@ -16,15 +16,14 @@ function get_data(page) {
         get_post({'action': 'getPost', 'data': {'limit': limit, 'offset': offset, 'offset_song': offset_song, 'user_id': user_id}});
     } else if(page == 2){
         var userid = localStorage.getItem("user_id");
-                if(userid){
-                    $('#login_form').hide();
-                    $('#profile').show();
-                    profile_show(userid,false);
-                } else {
-                    $('#login_form').show();
-                    $('#profile').hide();
-                }
-       
+        if(userid){
+            $('#login_form').hide();
+            $('#profile').show();
+            profile_show(userid,false);
+        } else {
+            $('#login_form').show();
+            $('#profile').hide();
+        }
     }
 }
 
@@ -78,15 +77,7 @@ function viewPost(post_id) {
     var userid = localStorage.getItem("user_id");
 
     if(userid){
-        var data = {'action':'post_view','data':{'post_id':post_id, 'user_id':userid}};
-        console.log(data);
-        // $.post({
-        //     'url': url,
-        //     'data': data,
-        //     success: function (result) {
-
-        //     }
-        // });        
+        var data = {'action':'post_view','data':{'post_id':post_id, 'user_id':userid}};      
     } else {
         alert('Please login to post your views');
     }
@@ -708,12 +699,13 @@ function song_comment(comment, user_id, song_id) {
             type: 'post',
             success: function (result) {
                 var obj = $.parseJSON(result);
+                console.log(obj);
                 var commentHtml = '';
                 if (obj.success) {
                     $.each(obj.comment, function (index, comments) {
                         var comment_response = comments.user_response;
                         var user_image = obj.base_url + 'uploads/images/user.png';
-                        if (comment.Photo != '') {
+                        if (comments.Photo !== '') {
                             user_image = obj.base_url + 'uploads/images/' + comments.Photo;
                         }
                         commentHtml += '<div class="layout-row user-comments" style="width:100%;">';
@@ -778,18 +770,18 @@ function profile_show(userid, public){
                     profile_html += '<div class="well profile">';
                     // profile_html += '<div class="col-sm-12">';
                     profile_html += '<div class="col-xs-12">';
-                    // profile_html += '<div class="image_container">';
+                    profile_html += '<div class="profile_image_container halfwidth">';
                     profile_html += '<img src="'+ user_image +'" alt="" class="img-responsive" >';
-                    // profile_html += '</div>';
+                    profile_html += '</div>';
                     profile_html += '</div>';
                     profile_html += '<div class="col-xs-12">';
                     profile_html += '<ul class="list-group">';
-                    profile_html += '<li class="list-group-item"><strong class="pull-left">Name: </strong> '+ profile.FirstName +' '+ profile.LastName +'</li>';
-                    profile_html += '<li class="list-group-item"><strong class="pull-left">About: </strong> '+ profile.AboutMe +' </li>';
-                    profile_html += '<li class="list-group-item"><strong class="pull-left">DOB: </strong> '+ profile.DOB +' </li>';
-                    profile_html += '<li class="list-group-item"><strong class="pull-left">City: </strong> '+ profile.City +' </li>';
-                    profile_html += '<li class="list-group-item"><strong class="pull-left">State: </strong> '+ profile.State +' </li>';
-                    profile_html += '<li class="list-group-item"><strong class="pull-left">Country: </strong> '+ profile.Country +' </li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">Name: </strong><p> '+ profile.FirstName +' '+ profile.LastName +'</p></li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">About: </strong><p> '+ profile.AboutMe +' </p></li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">DOB: </strong><p> '+ profile.DOB +' </p></li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">City: </strong><p> '+ profile.City +' </p></li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">State: </strong><p> '+ profile.State +' </p></li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">Country: </strong><p> '+ profile.Country +' </p></li>';
                     profile_html += '</ul>';
                     // profile_html += '<h2>'+ profile.FirstName +' '+ profile.LastName +'</h2>';
                     // profile_html += '<p><strong>About: </strong> '+ profile.AboutMe +' </p>';

@@ -104,30 +104,30 @@
 
     <script id="index.html" type="text/ng-template">
         <ion-view class="video-view" title="Indian Music Lab">
-        <ion-content scroll="false">
-        <tab-slide-box>
-        <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
-        <ion-slide>
-        <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
-        <div id="video_page">
-        <div id="video_page_header" class="artist"></div>
-        <div id="video_page_footer" class="artist"></div>
-        <div class="layout-row user-comments-youtube input-section">
-        <!--<img src="<?php echo $userImage ?>" alt="user-image"/>-->
-        <div class="input-area">
-        <textarea name="comment_field" class="comment_field" placeholder="Write a Comments" style="width: 100%" rows="2"></textarea>
-        <a href="javascript:void(0)" class="post_comment" onclick="commentSubmit(this)" ><i class="fa fa-check-circle fa-3x" style="color: #105704;"></i></a>
-        </div>
-        </div>
-        </div>
-        <div id="video_page_comment" class="artist"></div>
-        </ion-scroll>
-        </ion-slide>
-        </ion-slide>
-        </ion-slide-box>
-        </tab-slide-box>
+            <ion-content scroll="false">
+                <tab-slide-box>
+                    <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+                        <ion-slide>
+                            <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
+                                <div id="video_page">
+                                    <div id="video_page_header" class="artist"></div>
+                                    <div id="video_page_footer" class="artist"></div>
+                                    <div class="layout-row user-comments-youtube input-section">
+                                        <!--<img src="<?php echo $userImage ?>" alt="user-image"/>-->
+                                        <div class="input-area">
+                                            <textarea name="comment_field" class="comment_field" placeholder="Write a Comments" style="width: 100%" rows="2"></textarea>
+                                            <a href="javascript:void(0)" class="post_comment"><i class="fa fa-check-circle fa-3x" style="color: #105704;"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="video_page_comment" class="artist"></div>
+                            </ion-scroll>
+                        </ion-slide>
+                    </ion-slide>
+                </ion-slide-box>
+            </tab-slide-box>
         </ion-content>
-        </ion-view>
+    </ion-view>
 
     </script>
 
