@@ -317,8 +317,8 @@ function get_post(data) {
                         html += '<div class="layout-column comment-section" data-post_id = "' + comments.COM_ID + '">';
                     }
                     html += '<div class="layout-row user-comments profile_info" data-location="' + base_url + 'index.php/User/profile/' + comments.UID + '">';
-                    html += '<img src="' + user_image + '" alt="user-image"/>';
-                    html += '<div class="comment-wrap">' + comments.FirstName + ' ' + comments.LastName + '</div>';
+                    html += '<a href="profile.html?userId='+comments.UID+'"> <img src="' + user_image + '" alt="user-image"/>';
+                    html += '<div class="comment-wrap">' + comments.FirstName + ' ' + comments.LastName + '</div></a>';
                     html += '</div><hr style="    margin-top: 5px;margin-bottom: 5px;">';
                     if (comments.song) {
                         html += '<div class="layout-row user-comments">';
@@ -745,7 +745,7 @@ function song_comment(comment, user_id, song_id) {
     }
 }
 
-function profile_show(userid){
+function profile_show(userid, public){
     var data = {'action': 'show_profile', 'data': { 'userid': userid}};
     $.ajax({
         url: url,
@@ -760,29 +760,40 @@ function profile_show(userid){
                     if (profile.Photo != '') {
                         user_image = obj.base_url + 'uploads/images/' + profile.Photo;
                     }
-                    profile_html += '<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">';
+                    // profile_html += '<div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">';
                     profile_html += '<div class="well profile">';
-                    profile_html += '<div class="col-sm-12">';
-                    profile_html += '<div class="col-xs-4 pull-left"><figure>';
-                    profile_html += '<img src="'+ user_image +'" alt="" class="img-rounded img-responsive pull-right">';
-                    profile_html += '</figure></div>';
-                    profile_html += '<div class="col-xs-8 pull-right">';
-                    profile_html += '<h2>'+ profile.FirstName +' '+ profile.LastName +'</h2>';
-                    profile_html += '<p><strong>About: </strong> '+ profile.AboutMe +' </p>';
-                    profile_html += '<p><strong>DOB: </strong> '+ profile.DOB +' </p>';
-                    profile_html += '<p><strong>Adrress: </strong>';
-                    profile_html += '<span class="tags">'+profile.City+'</span>';
-                    profile_html += '<span class="tags">'+profile.State+'</span>';
-                    profile_html += '<span class="tags">'+profile.Country+'</span>';
-                    profile_html += '</p></div></div>';
-                    profile_html += '<div class="col-xs-12 divider text-center">';
-                    profile_html += '<div class="col-xs-12 col-sm-4 emphasis">';
-                    profile_html += '<button class="btn btn-danger btn-block" onclick="logout()"><span class="fa fa-sign-out "></span> Logout </button>';
-                    profile_html += '</div></div></div></div>';
+                    // profile_html += '<div class="col-sm-12">';
+                    profile_html += '<div class="col-xs-12">';
+                    // profile_html += '<div class="image_container">';
+                    profile_html += '<img src="'+ user_image +'" alt="" class="img-responsive" >';
+                    // profile_html += '</div>';
+                    profile_html += '</div>';
+                    profile_html += '<div class="col-xs-12">';
+                    profile_html += '<ul class="list-group">';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">Name: </strong> '+ profile.FirstName +' '+ profile.LastName +'</li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">About: </strong> '+ profile.AboutMe +' </li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">DOB: </strong> '+ profile.DOB +' </li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">City: </strong> '+ profile.City +' </li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">State: </strong> '+ profile.State +' </li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">Country: </strong> '+ profile.Country +' </li>';
+                    profile_html += '</ul>';
+                    // profile_html += '<h2>'+ profile.FirstName +' '+ profile.LastName +'</h2>';
+                    // profile_html += '<p><strong>About: </strong> '+ profile.AboutMe +' </p>';
+                    // profile_html += '<p><strong>DOB: </strong> '+ profile.DOB +' </p>';
+                    // profile_html += '<p><strong>Address: </strong>';
+                    // profile_html += '<span class="tags">'+profile.City+'</span>';
+                    // profile_html += '<span class="tags">'+profile.State+'</span>';
+                    // profile_html += '<span class="tags">'+profile.Country+'</span>';
+                    // profile_html += '</div>';
+                    if(!public){
+                        // profile_html += '<div class="col-xs-12 divider text-center">';
+                        profile_html += '<div class="col-xs-12 col-sm-4 emphasis">';
+                        profile_html += '<button class="btn btn-danger btn-block" onclick="logout()"><span class="fa fa-sign-out "></span> Logout </button>';
+                        profile_html += '</div>';                        
+                    }
+                    profile_html += '</div></div>';
                 });
                 $('#profile').append(profile_html);
-
-
             } 
         }
     });
@@ -793,4 +804,3 @@ function logout(){
     $('#login_form').show();
     $('#profile').hide();
 }
-
