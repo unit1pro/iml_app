@@ -89,6 +89,22 @@
                 box-shadow: 3px 4px 16px #ddd9d9;
                 margin: 5px 0 1px 0!important;
             }
+
+            .profile{display:inline-block}
+            figcaption.ratings{margin-top:20px}
+            figcaption.ratings a{color:#f1c40f;font-size:11px}
+            figcaption.ratings a:hover{color:#f39c12;text-decoration:none}
+            .divider{border-top:1px solid rgba(0,0,0,0.1)}
+            .emphasis{border-top:4px solid transparent}
+            .emphasis:hover{border-top:4px solid #1abc9c}
+            .emphasis h2{margin-bottom:0}
+            span.tags{background:#1abc9c;border-radius:2px;color:#f5f5f5;font-weight:700;padding:2px 4px}
+            .dropdown-menu{background-color:#34495e;box-shadow:none;-webkit-box-shadow:none;width:250px;margin-left:-125px;left:50%}
+            .dropdown-menu .divider{background:none}
+            .dropdown-menu>li>a{color:#f5f5f5}
+            .dropup .dropdown-menu{margin-bottom:10px}
+            .dropup .dropdown-menu:before{content:"";border-top:10px solid #34495e;border-right:10px solid transparent;border-left:10px solid transparent;position:absolute;bottom:-10px;left:50%;margin-left:-10px;z-index:10}
+
         </style>
 
     </head>
@@ -104,30 +120,25 @@
 
     <script id="index.html" type="text/ng-template">
         <ion-view class="video-view" title="Indian Music Lab">
-        <ion-content scroll="false">
-        <tab-slide-box>
-        <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
-        <ion-slide>
-        <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
-        <div id="video_page">
-        <div id="video_page_header" class="artist"></div>
-        <div id="video_page_footer" class="artist"></div>
-        <div class="layout-row user-comments-youtube input-section">
-        <!--<img src="<?php echo $userImage ?>" alt="user-image"/>-->
-        <div class="input-area">
-        <textarea name="comment_field" class="comment_field" placeholder="Write a Comments" style="width: 100%" rows="2"></textarea>
-        <a href="javascript:void(0)" class="post_comment" onclick="commentSubmit(this)" ><i class="fa fa-check-circle fa-3x" style="color: #105704;"></i></a>
-        </div>
-        </div>
-        </div>
-        <div id="video_page_comment" class="artist"></div>
-        </ion-scroll>
-        </ion-slide>
-        </ion-slide>
-        </ion-slide-box>
-        </tab-slide-box>
+            <ion-content scroll="false">
+                <tab-slide-box>
+                    <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+                        <ion-slide>
+                            <ion-scroll style="height:100%" delegate-handle="slide1Scroll" >
+                                <div id="profile_page">
+
+                                    <div id="profile">
+
+                                    </div>
+
+                                </div>
+                            </ion-scroll>
+                        </ion-slide>
+                    </ion-slide>
+                </ion-slide-box>
+            </tab-slide-box>
         </ion-content>
-        </ion-view>
+    </ion-view>
 
     </script>
 
@@ -137,19 +148,10 @@
     <script>
 
         $(document).ready(function(){
-        var song_id = getQueryStringValue('songId');
-        videoView(song_id);
-        
-        
-        $('.post_comment').click(function (e) {
-            var user_id = localStorage.getItem("user_id");
-            if (user_id) {
-            var comment = $(this).parent().find('textarea').val();
-            song_comment(comment, user_id, song_id);
-            } else {
-                alert("Please Login to use the service.");
-            }
-            });
+            $('ion-header-bar').prepend('<a class="button back_button_show_hide buttons button-icon ion-arrow-left-c" href="index.html"></a>');
+
+            var user_id = getQueryStringValue('userId');
+            profile_show(user_id, 'public');
         });
     </script>
 </body>
