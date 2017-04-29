@@ -19,11 +19,15 @@ img{
     max-width: 100%;
 }
 
-/*.item-image {
-  position: relative;
-  overflow: hidden;
-  padding-bottom: 50%;
-}*/
+
+
+/*
+* === Rajkumar ===
+*/
+.update_button{
+    margin-right: 50px;
+}
+
 .profile-img{
 /*    display: inline-block;
     height: 100px;
@@ -34,6 +38,8 @@ img{
     object-fit: cover;
 }
 .profile_image_container{
+    display:inline-block;
+    position:relative;
     height: 200px;    
 }
 .profile_image_container img {
@@ -44,10 +50,6 @@ img{
     height: 50vw;
     background-color: #e0e0e0;
 }
-
-/*
-* === Rajkumar ===
-*/
 .liked{
     color:#74db67 !important;
 }

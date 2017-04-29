@@ -303,179 +303,184 @@ function get_post(data) {
         'type': 'post',
         success: function (result) {
             var obj = $.parseJSON(result);
+
+                
             var base_url = obj.base_url;
             var site_url = obj.site_url;
             offset_song = obj.song_offset;
             var html = '';
             if (obj.success) {
                 $.each(obj.comment, function (index, comments) {
-                    var user_image = base_url + 'uploads/images/user.png'
-                    if (comments.Photo != '') {
-                        user_image = base_url + 'uploads/images/' + comments.Photo;
-                    }
-                    if (comments.song) {
-                        html += '<div class="layout-column comment-section" data-song_id = "' + comments.ID + '">';
-                    } else {
-                        html += '<div class="layout-column comment-section" data-post_id = "' + comments.COM_ID + '">';
-                    }
-                    html += '<div class="layout-row user-comments profile_info" data-location="' + base_url + 'index.php/User/profile/' + comments.UID + '">';
-                    html += '<a href="profile.html?userId='+comments.UID+'"><span class="profile-img"><img src="' + user_image + '" alt="user-image"/></span>';
-                    html += '<span class="comment-wrap">' + comments.FirstName + ' ' + comments.LastName + '</span></a>';
-                    html += '</div><hr style="    margin-top: 5px;margin-bottom: 5px;">';
-                    if (comments.song) {
-                        html += '<div class="layout-row user-comments">';
-                        html += '<div class="">';
-                        html += '<span>' + comments.Song_Title + '</span>';
-                        html += '</div>';
-                        html += '</div>';
-                        html += '<div class="layout-row user-comments">';
-                        html += '<div class="">';
-                        html += '<span>' + comments.synopsis + '</span>';
-                        html += '</div>';
-                        html += '</div>';
-                        html += '<div class="layout-column layout-align-center-center" >';
-                        html += '<a href="' + site_url + '/Video/index/' + comments.ID + '"><img src="' + base_url + '/uploads/images/' + comments.Image + '" height = 170></a>';
-                        html += '</div>';
-                    }
-                    if (comments.COMMENTS != '' && !comments.song) {
-                        html += '<div class="layout-row user-comments">';
-                        html += '<div class="">';
-                        html += '<span>' + comments.COMMENTS + '</span>';
-                        html += '</div>';
-                        html += '</div>';
-                    }
-                    if (comments.attachment != null && !comments.song) {
-                        $.each(comments.attachment, function (key, attach) {
-                            if (attach.attachment_type == 'audios') {
-                                html += '<div class="layout-column layout-align-center-center" data-att_id="' + attach.att_id + '">';
-                                html += '<audio controls>';
-                                html += '<source src="' + base_url + '/uploads/audios/' + attach.attachment_path + '" type="audio/ogg">';
-                                html += '</audio>';
-                                html += '</div>';
-                            } else if (attach.attachment_type == 'videos') {
-                                html += '<div class="layout-column layout-align-center-center" data-att_id="' + attach.att_id + '">';
-                                html += '<video height="auto" controls>';
-                                html += '<source src="' + base_url + '/uploads/videos/' + attach.attachment_path + '" type="video/mp4">';
-                                html += '</video>';
-                                html += '</div>';
-                            } else if (attach.attachment_type == 'images') {
-                                html += '<div class="layout-column layout-align-center-center" data-att_id="' + attach.att_id + '">';
-                                html += '<img src="' + base_url + '/uploads/images/' + attach.attachment_path + '" height = 170>';
-                                html += '</div>';
-                            }
-                        });
-                    }
-                    html += '<div class="layout-row action-wrapper">';
-                    var response = comments.user_response;
-                    if (comments.song) {
-                        if (response == '1') {
-                            html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
-
+                    if(typeof(comments.UID) !== 'undefined'){
+                        var user_image = base_url + 'uploads/images/user.png'
+                        if (comments.Photo != '') {
+                            user_image = base_url + 'uploads/images/' + comments.Photo;
+                        }
+                        if (comments.song) {
+                            html += '<div class="layout-column comment-section" data-song_id = "' + comments.ID + '">';
                         } else {
-                            html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-up"></i></a>';
-
+                            html += '<div class="layout-column comment-section" data-post_id = "' + comments.COM_ID + '">';
                         }
-                        html += '<span class="like_count_span">';
-                        if (comments.like_count) {
-                            html += comments.like_count + ' Likes ';
-                        }
-                        html += '</span>';
-                        html += '</div>';
-                    } else {
-                        if (response == '1') {
-                            html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="1" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
-                        } else {
-                            html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="1" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
-                        }
-                        html += '<span class="like_count_span">';
-                        if (comments.like_count) {
-                            html += comments.like_count + ' Likes ';
-                        }
-                        html += '</span>';
-                        html += '</div>';
-                    }
-                    if (comments.song) {
-                        if (response == 2) {
-                            html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="2" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
-                        } else {
-                            html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="2" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-down"></i></a>';
-                        }
-                        html += '<span class="dislike_count_span">';
-                        if (comments.dislike_count) {
-
-                            html += comments.dislike_count + ' Dislikes';
-                        }
-                        html += '</span>';
-                        html += ' </div>';
-                    } else {
-                        if (response == 2) {
-                            html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="2" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
-                        } else {
-                            html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="2" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-down"></i></a>';
-                        }
-                        html += '<span class="dislike_count_span">';
-                        if (comments.dislike_count) {
-
-                            html += comments.dislike_count + ' Dislikes';
-                        }
-                        html += '</span>';
-                        html += ' </div>';
-                    }
-                    html += '<div class="layout-row layout-align-start-center flex-25" ><a href="#" class="comment_button"><i class="fa fa-comment"></i>Comments</a></div>';
-//                        html += '<div class="layout-row layout-align-end-center flex-20"><i class="fa fa-share"></i> Share</div>';
-                    html += '</div>';
-                    html += '<div class="comment_textarea" style="display:none">';
-                    html += '<textarea class="col-md-11" placeholder="Comment"></textarea>';
-                    html += '<button class="btn btn-info col-md-1 comment_submit" onclick="commentSubmit(this);"><i class="fa fa-arrow-right"></i></button>';
-                    html += '</div>';
-
-                    if (typeof comments.subComments !== "undefined" && comments.subComments.length !== 0) {
-                        html += '<div class="layout-row comment-wrap">';
-//                            html += '<span class="flex-75">View Previous Comments</span>';
-                        html += '</div>';
-                        $.each(comments.subComments, function (scKey, sc) {
-                            var sc_response = sc.user_response;
-                            var user_image = base_url + 'uploads/images/user.png';
-                            if (sc.Photo != '') {
-                                user_image = base_url + 'uploads/images/' + sc.Photo;
-                            }
-                            html += '<div class="layout-row user-comments" style="width:100%;">';
-                            html += '<a href="profile.html?userId='+sc.UID+'"><span class="profile-img"><img src="' + user_image + '" alt="user-image"/></span></a>';
-                            html += '<div class="layout-column user-detail" style="width:100%;">';
-                            html += '<div class="layout-row">';
-                            html += '<a href="profile.html?userId='+sc.UID+'"><span class="user-name">' + sc.FirstName + ' ' + sc.LastName + '</span></a>';
-                            html += '<span>' + sc.COMMENTS + '</span>';
+                        html += '<div class="layout-row user-comments profile_info" data-location="' + base_url + 'index.php/User/profile/' + comments.UID + '">';
+                        html += '<a href="profile.html?userId='+comments.UID+'"><span class="profile-img"><img src="' + user_image + '" alt="user-image"/></span>';
+                        html += '<span class="comment-wrap">' + comments.FirstName + ' ' + comments.LastName + '</span></a>';
+                        html += '</div><hr style="    margin-top: 5px;margin-bottom: 5px;">';
+                        if (comments.song) {
+                            html += '<div class="layout-row user-comments">';
+                            html += '<div class="">';
+                            html += '<span>' + comments.Song_Title + '</span>';
                             html += '</div>';
-                            html += '<div class="layout-row action-wrapper">';
-                            if (sc_response == '1') {
-                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
+                            html += '</div>';
+                            html += '<div class="layout-row user-comments">';
+                            html += '<div class="">';
+                            html += '<span>' + comments.synopsis + '</span>';
+                            html += '</div>';
+                            html += '</div>';
+                            html += '<div class="layout-column layout-align-center-center" >';
+                            html += '<a href="' + site_url + '/Video/index/' + comments.ID + '"><img src="' + base_url + '/uploads/images/' + comments.Image + '" onError="this.src=' + base_url + '/uploads/images/404.png" height=170></a>';
+                            html += '</div>';
+                        }
+                        if (comments.COMMENTS != '' && !comments.song) {
+                            html += '<div class="layout-row user-comments">';
+                            html += '<div class="">';
+                            html += '<span>' + comments.COMMENTS + '</span>';
+                            html += '</div>';
+                            html += '</div>';
+                        }
+                        if (comments.attachment != null && !comments.song) {
+                            $.each(comments.attachment, function (key, attach) {
+                                if (attach.attachment_type == 'audios') {
+                                    html += '<div class="layout-column layout-align-center-center" data-att_id="' + attach.att_id + '">';
+                                    html += '<audio controls>';
+                                    html += '<source src="' + base_url + '/uploads/audios/' + attach.attachment_path + '" type="audio/ogg">';
+                                    html += '</audio>';
+                                    html += '</div>';
+                                } else if (attach.attachment_type == 'videos') {
+                                    html += '<div class="layout-column layout-align-center-center" data-att_id="' + attach.att_id + '">';
+                                    html += '<video height="auto" controls>';
+                                    html += '<source src="' + base_url + '/uploads/videos/' + attach.attachment_path + '" type="video/mp4">';
+                                    html += '</video>';
+                                    html += '</div>';
+                                } else if (attach.attachment_type == 'images') {
+                                    html += '<div class="layout-column layout-align-center-center" data-att_id="' + attach.att_id + '">';
+                                    html += '<img src="' + base_url + '/uploads/images/' + attach.attachment_path + '" height = 170>';
+                                    html += '</div>';
+                                }
+                            });
+                        }
+                        html += '<div class="layout-row action-wrapper">';
+                        var response = comments.user_response;
+                        if (comments.song) {
+                            if (response == '1') {
+                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
+
                             } else {
-                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
+                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-up"></i></a>';
+
                             }
                             html += '<span class="like_count_span">';
-                            if (sc.like_count) {
-                                html += sc.like_count + ' Likes';
+                            if (comments.like_count) {
+                                html += comments.like_count + ' Likes ';
                             }
                             html += '</span>';
                             html += '</div>';
-                            if (sc_response == '2') {
-                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
+                        } else {
+                            if (response == '1') {
+                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="1" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
                             } else {
-                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-down"></i></a>';
+                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="1" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
+                            }
+                            html += '<span class="like_count_span">';
+                            if (comments.like_count) {
+                                html += comments.like_count + ' Likes ';
+                            }
+                            html += '</span>';
+                            html += '</div>';
+                        }
+                        if (comments.song) {
+                            if (response == 2) {
+                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="2" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
+                            } else {
+                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="2" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-down"></i></a>';
                             }
                             html += '<span class="dislike_count_span">';
-                            if (sc.dislike_count) {
-                                html += sc.dislike_count + ' Dislikes';
+                            if (comments.dislike_count) {
+
+                                html += comments.dislike_count + ' Dislikes';
                             }
                             html += '</span>';
+                            html += ' </div>';
+                        } else {
+                            if (response == 2) {
+                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="2" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
+                            } else {
+                                html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="2" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-down"></i></a>';
+                            }
+                            html += '<span class="dislike_count_span">';
+                            if (comments.dislike_count) {
+
+                                html += comments.dislike_count + ' Dislikes';
+                            }
+                            html += '</span>';
+                            html += ' </div>';
+                        }
+                        html += '<div class="layout-row layout-align-start-center flex-25" ><a href="#" class="comment_button"><i class="fa fa-comment"></i>Comments</a></div>';
+    //                        html += '<div class="layout-row layout-align-end-center flex-20"><i class="fa fa-share"></i> Share</div>';
+                        html += '</div>';
+                        html += '<div class="comment_textarea" style="display:none">';
+                        html += '<textarea class="col-md-11" placeholder="Comment"></textarea>';
+                        html += '<button class="btn btn-info col-md-1 comment_submit" onclick="commentSubmit(this);"><i class="fa fa-arrow-right"></i></button>';
+                        html += '</div>';
+
+                        if (typeof comments.subComments !== "undefined" && comments.subComments.length !== 0) {
+                            html += '<div class="layout-row comment-wrap">';
+    //                            html += '<span class="flex-75">View Previous Comments</span>';
                             html += '</div>';
-                            html += '</div>';
-                            html += '</div>';
-                            html += '<hr>';
-                            html += '</div>';
-                        });
+                            $.each(comments.subComments, function (scKey, sc) {
+                                var sc_response = sc.user_response;
+                                var user_image = base_url + 'uploads/images/user.png';
+                                if (sc.Photo != '') {
+                                    user_image = base_url + 'uploads/images/' + sc.Photo;
+                                }
+                                html += '<div class="layout-row user-comments" style="width:100%;">';
+                                html += '<a href="profile.html?userId='+sc.UID+'"><span class="profile-img"><img src="' + user_image + '" alt="user-image"/></span></a>';
+                                html += '<div class="layout-column user-detail" style="width:100%;">';
+                                html += '<div class="layout-row">';
+                                html += '<a href="profile.html?userId='+sc.UID+'"><span class="user-name">' + sc.FirstName + ' ' + sc.LastName + '</span></a>';
+                                html += '<span>' + sc.COMMENTS + '</span>';
+                                html += '</div>';
+                                html += '<div class="layout-row action-wrapper">';
+                                if (sc_response == '1') {
+                                    html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
+                                } else {
+                                    html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
+                                }
+                                html += '<span class="like_count_span">';
+                                if (sc.like_count) {
+                                    html += sc.like_count + ' Likes';
+                                }
+                                html += '</span>';
+                                html += '</div>';
+                                if (sc_response == '2') {
+                                    html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
+                                } else {
+                                    html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + sc.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + sc.COM_ID + '"><i class="fa fa-thumbs-down"></i></a>';
+                                }
+                                html += '<span class="dislike_count_span">';
+                                if (sc.dislike_count) {
+                                    html += sc.dislike_count + ' Dislikes';
+                                }
+                                html += '</span>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '</div>';
+                                html += '<hr>';
+                                html += '</div>';
+                            });
+                        }
+                        html += '</div>';
+                        
                     }
-                    html += '</div>';
                 });
 
                 $('#public_wall').append(html);
@@ -699,7 +704,6 @@ function song_comment(comment, user_id, song_id) {
             type: 'post',
             success: function (result) {
                 var obj = $.parseJSON(result);
-                console.log(obj);
                 var commentHtml = '';
                 if (obj.success) {
                     $.each(obj.comment, function (index, comments) {
@@ -772,6 +776,7 @@ function profile_show(userid, public){
                     profile_html += '<div class="col-xs-12">';
                     profile_html += '<div class="profile_image_container halfwidth">';
                     profile_html += '<img src="'+ user_image +'" alt="" class="img-responsive" >';
+                    profile_html += '<a href = "update.html?action=picture"><input type="button" class="btn btn-info btn-xs" value="Change" style="position:absolute;top:5px;right:5px;"/></a>';
                     profile_html += '</div>';
                     profile_html += '</div>';
                     profile_html += '<div class="col-xs-12">';
@@ -783,18 +788,12 @@ function profile_show(userid, public){
                     profile_html += '<li class="list-group-item"><strong class="pull-left">State: </strong><p> '+ profile.State +' </p></li>';
                     profile_html += '<li class="list-group-item"><strong class="pull-left">Country: </strong><p> '+ profile.Country +' </p></li>';
                     profile_html += '</ul>';
-                    // profile_html += '<h2>'+ profile.FirstName +' '+ profile.LastName +'</h2>';
-                    // profile_html += '<p><strong>About: </strong> '+ profile.AboutMe +' </p>';
-                    // profile_html += '<p><strong>DOB: </strong> '+ profile.DOB +' </p>';
-                    // profile_html += '<p><strong>Address: </strong>';
-                    // profile_html += '<span class="tags">'+profile.City+'</span>';
-                    // profile_html += '<span class="tags">'+profile.State+'</span>';
-                    // profile_html += '<span class="tags">'+profile.Country+'</span>';
-                    // profile_html += '</div>';
+
                     if(!public){
-                        // profile_html += '<div class="col-xs-12 divider text-center">';
                         profile_html += '<div class="col-xs-12 col-sm-4 emphasis">';
-                        profile_html += '<button class="btn btn-danger btn-block" onclick="logout()"><span class="fa fa-sign-out "></span> Logout </button>';
+                        profile_html += '<button class="btn btn-info btn-xs update_button"><a href = "update.html?action=account"><span class="fa fa-cog"></span> Account </a></button>';                        
+                        profile_html += '<button class="btn btn-info btn-xs update_button"><a href = "update.html?action=profile"><span class="fa fa-user"></span> Update </a></button>';
+                        profile_html += '<button class="btn btn-danger btn-xs logout_button" onclick="logout()"><span class="fa fa-sign-out "></span> Logout </button>';
                         profile_html += '</div>';                        
                     }
                     profile_html += '</div></div>';
@@ -812,4 +811,22 @@ function logout(){
     $('#login_form').show();
     $('#profile').hide();
     // location.reload();
+}
+
+function edit_profile(callBack){
+
+    var user_id = localStorage.getItem("user_id");
+    var data = {'action': 'show_profile', 'data': { 'userid': user_id}};
+    var obj;
+    $.ajax({
+        url: url,
+        data: data,
+        type: 'post',
+        cache: false,
+        success: function (result) {
+            obj = $.parseJSON(result);
+            callBack(obj);
+        }
+    });
+    // console.log(obj);
 }
