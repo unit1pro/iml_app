@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2017 at 03:44 PM
+-- Generation Time: May 02, 2017 at 01:42 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -455,7 +455,8 @@ INSERT INTO `social_response` (`id`, `response_type`, `response_on`, `post_type`
 (103, 2, 141, 2, 22, '2017-04-27 05:24:23', 22, '2017-04-27 05:25:45'),
 (104, 1, 142, 3, 22, '2017-04-27 05:29:10', 22, '2017-04-27 05:29:12'),
 (105, 2, 142, 3, 1, '2017-04-27 05:56:10', 1, '2017-04-27 05:56:10'),
-(106, 0, 16, 1, 24, '2017-04-26 21:49:12', 24, '2017-04-26 21:49:15');
+(106, 0, 16, 1, 24, '2017-04-26 21:49:12', 24, '2017-04-26 21:49:15'),
+(107, 0, 167, 2, 22, '2017-04-28 02:15:19', 22, '2017-04-28 02:15:20');
 
 -- --------------------------------------------------------
 
@@ -495,10 +496,10 @@ CREATE TABLE `songs` (
 INSERT INTO `songs` (`ID`, `CAT_ID`, `Song_Title`, `composer`, `director`, `Writers`, `synopsis`, `Date`, `LINK_APPROVED`, `HITS`, `RATING`, `NO_RATES`, `TOTAL_COMMENTS`, `HIT_DATE`, `Image`, `Song_status`, `Song_File_Name`, `isActive`, `created_On`, `Created_By`, `Updated_On`, `Updated_By`) VALUES
 (10, 1, 'Ibadat', 'Alan Manjrekar', '', '', '', '2017-03-05', NULL, 6, NULL, NULL, NULL, NULL, 'Shikhar.jpg', 1, '2017201702020202133622000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-15 11:38:35', 1, '0000-00-00 00:00:00', 1),
 (11, 1, 'test 3', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 11, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133837000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-14 16:38:13', 1, '0000-00-00 00:00:00', 1),
-(12, 1, 'test 4', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 72, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133850000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-27 09:37:02', 1, '0000-00-00 00:00:00', 1),
-(13, 1, 'test 5', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 88, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133854000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-27 15:38:25', 1, '0000-00-00 00:00:00', 1),
-(14, 1, 'test 6', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 63, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133857000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-27 15:35:47', 1, '0000-00-00 00:00:00', 1),
-(15, 1, 'test 7', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 77, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133901000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-27 14:40:17', 1, '0000-00-00 00:00:00', 1),
+(12, 1, 'test 4', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 77, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133850000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-29 11:54:50', 1, '0000-00-00 00:00:00', 1),
+(13, 1, 'test 5', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 89, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133854000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-28 07:17:08', 1, '0000-00-00 00:00:00', 1),
+(14, 1, 'test 6', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 65, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133857000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-28 13:38:23', 1, '0000-00-00 00:00:00', 1),
+(15, 1, 'test 7', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 80, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133901000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-28 13:38:36', 1, '0000-00-00 00:00:00', 1),
 (16, 1, 'test 8', 'test c1', 'test d', 'test w', 'Test', '0000-00-00', NULL, 84, NULL, NULL, NULL, NULL, 'sample-image.jpg', 1, '2017201702020202133904000000SampleVideo_1280x720_1mb.mp4', b'1', '2017-04-27 15:18:36', 1, '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
@@ -579,7 +580,7 @@ INSERT INTO `usermain` (`UID`, `UserName`, `Password`, `FirstName`, `LastName`, 
 (10, 'anurag', '7c39e97815e778d2d7c3ce2f56c6fd12', 'Anurag', 'Puranik', '', '', '', '', 'anurag@indianmusiclab.com', '0000-00-00', '', '0000-00-00', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, b'1', '2017-03-07 04:09:29', 1, '2017-03-07 04:09:29', 1),
 (11, 'ashwani', '7c39e97815e778d2d7c3ce2f56c6fd12', 'Ashwani', 'Bisoya', '', '', '', '', 'ashwani@indianmusiclab.com', '0000-00-00', '', '0000-00-00', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, b'1', '2017-03-07 04:11:24', 1, '2017-03-07 04:11:24', 1),
 (12, 'sachin', '7c39e97815e778d2d7c3ce2f56c6fd12', 'Sachin', 'Dave', '', '', '', '', 'sachin@indiantimesdaily.com', '0000-00-00', 'About Me Content', '0000-00-00', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, b'1', '2017-03-07 04:12:50', 1, '2017-03-07 04:12:50', 1),
-(22, 'rajkumar', 'fcea920f7412b5da7be0cf42b8c93759', 'Raj', 'Kumar', '9839653641', 'Mumbai', 'Maharastra', 'India', 'rkgt76@gmail.com', '1970-01-01', 'About Me Content', '2017-04-10', '855354f514e70099cbd0220ded75ddc3.JPG', 'raj.kr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, b'1', '2017-04-08 11:21:51', 1, '2017-04-08 11:21:51', 22),
+(22, 'rajkumar', '96e79218965eb72c92a549dd5a330112', 'Raj', 'Kumar', '', 'Mumbai', 'Maharastra', 'India', 'rkgt76@gmail.com', '1970-01-01', 'About Me Content updated 1', '2017-05-01', '2017050211490300000033306d6948a059f945cce56cd429fdf8.JPG', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, b'1', '2017-04-08 11:21:51', 1, '2017-04-08 11:21:51', 22),
 (23, 'test1234', '7c39e97815e778d2d7c3ce2f56c6fd12', 'test', '1234', '', '', '', '', 'test1234@gmil.com', '0000-00-00', '', '2017-04-19', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, b'1', '2017-04-19 12:58:03', 0, '2017-04-19 12:58:03', 0),
 (24, 'test 45', '96e79218965eb72c92a549dd5a330112', 'Test', 'Dev', '', '', '', '', 'testdev@gmail.com', '0000-00-00', '', '2017-04-27', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, b'1', '2017-04-27 08:59:55', 0, '2017-04-27 08:59:55', 0);
 
@@ -804,7 +805,7 @@ ALTER TABLE `m_reference_detail`
 -- AUTO_INCREMENT for table `social_response`
 --
 ALTER TABLE `social_response`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 --
 -- AUTO_INCREMENT for table `songs`
 --
