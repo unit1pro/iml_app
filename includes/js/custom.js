@@ -96,9 +96,31 @@ function videoView(song_ID) {
             var width = $(window).width();
             var height = width * 9 / 16;
             var obj = $.parseJSON(result);
+
             var html = '';
             html += '<div class="flex-70 flex-xs-100 layout-column youtube-section">';
-            html += '<video height=' + height + ' width=' + width + ' controls autoplay>';
+
+            html += '<div class="overlay">';
+            html += '<div class="text-container">';
+            html += '<h4>Please choose video</h4>';
+            html += '<div>';
+            html += '<div class="layout-row">';
+            html += '<a href = "video.html?songId=' + obj.songs_data.ID + '">';
+            html += '<img src="' + obj.video_base_path + '/' + obj.songs_data.Image + '" class="album_image">';
+            html += '</a>';
+            html += '</div>';
+            html += '</div>';
+            $.each(obj.allVideos, function (index, allVideo) {
+                html += '<div class="layout-row">';
+                html += '<a href = "video.html?songId=' + allVideo.ID + '">';
+                html += '<img src="' + obj.image_base_path + '/' + allVideo.Image + '" class="album_image">';
+                html += '</a>';
+                html += '</div>';
+            });
+            html += '</div>';
+            html += '</div>';
+
+            html += '<video height=' + height + ' width=' + width + ' controls>';
             html += '<source src="' + obj.video_base_path + '/' + obj.songs_data.Song_File_Name + '" type="video/mp4">';
             html += '</video>';
             html += '<div class="layout-column">';
@@ -116,14 +138,14 @@ function videoView(song_ID) {
             html += '<span>' + obj.songs_data.synopsis + '</span>';
             html += '</div>';
             html += '</div>';
-            html += '<div class="layout-row  share-it">';
-            html += '<span class="layout-row flex-20 layout-align-start-center">';
-            html += '<span>' + obj.songs_data.HITS + ' views</span>'
-            html += '</span>';
-            html += '<span class="layout-row flex-30 layout-align-start-center">';
-            html += '</span>';
-            html += '<span class="layout-row flex-20 layout-align-start-center">';
-            html += '</span>';
+            html += '<div class="layout-row share-it">';
+            // html += '<span class="layout-row flex-20 layout-align-start-center">';
+            // html += '<span>' + obj.songs_data.HITS + ' views</span>'
+            // html += '</span>';
+            // html += '<span class="layout-row flex-30 layout-align-start-center">';
+            // html += '</span>';
+            // html += '<span class="layout-row flex-20 layout-align-start-center">';
+            // html += '</span>';
             html += '<div class="layout-row action-wrapper" style="width:100%">';
 
             if (obj.songs_data.user_response == '1') {
@@ -132,6 +154,7 @@ function videoView(song_ID) {
                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + song_ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + song_ID + '"><i class="fa fa-thumbs-up"></i></a>';
             }
             html += '<span class="like_count_span">';
+
             if (obj.songs_data.total_likes) {
                 html += obj.songs_data.total_likes + ' Likes ';
             }
@@ -210,8 +233,8 @@ function videoView(song_ID) {
                     commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comment.COM_ID + ')" data-post_type="3" data-response_type="1" data-commentid="' + comment.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
                 }
                 commentHtml += '<span class="like_count_span">';
-                if (comment.like_count) {
-                    commentHtml += comment.like_count + ' Likes';
+                if (comment.total_likes) {
+                    commentHtml += comment.total_likes + ' Likes';
                 }
                 commentHtml += '</span>';
                 commentHtml += '</div>';
@@ -221,8 +244,8 @@ function videoView(song_ID) {
                     commentHtml += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comment.COM_ID + ')" data-post_type="3" data-response_type="2" data-commentid="' + comment.COM_ID + '"><i class="fa fa-thumbs-down"></i></a>';
                 }
                 commentHtml += '<span class="dislike_count_span">';
-                if (comment.dislike_count) {
-                    commentHtml += comment.dislike_count + ' Dislikes';
+                if (comment.total_dislikes) {
+                    commentHtml += comment.total_dislikes + ' Dislikes';
                 }
                 commentHtml += '</span>';
                 commentHtml += '</div>';
@@ -247,11 +270,20 @@ function videoView(song_ID) {
                 }
             });
 
+
             var views = $('#views').html();
             new_view = views.match(/\d+/)[0];
             new_view++;
 
             post_hit_count({'new_view': new_view, 'song_id': song_ID});
+
+            $('.overlay').width($('.video_container').width());
+            $('.overlay').height($('.video_container').height());
+
+            setTimeout(function(){
+                 $('.overlay').hide();
+                 $('video')[0].play();
+            }, 5000);
         }
     });
 }
@@ -782,7 +814,7 @@ function profile_show(userid, public){
                     profile_html += '<div class="col-xs-12">';
                     profile_html += '<ul class="list-group">';
                     profile_html += '<li class="list-group-item"><strong class="pull-left">Name: </strong><p> '+ profile.FirstName +' '+ profile.LastName +'</p></li>';
-                    profile_html += '<li class="list-group-item"><strong class="pull-left">About: </strong><p> '+ profile.AboutMe +' </p></li>';
+                    profile_html += '<li class="list-group-item"><strong class="pull-left">Email: </strong><p> '+ profile.Email +' </p></li>';
                     profile_html += '<li class="list-group-item"><strong class="pull-left">DOB: </strong><p> '+ profile.DOB +' </p></li>';
                     profile_html += '<li class="list-group-item"><strong class="pull-left">City: </strong><p> '+ profile.City +' </p></li>';
                     profile_html += '<li class="list-group-item"><strong class="pull-left">State: </strong><p> '+ profile.State +' </p></li>';
@@ -791,7 +823,7 @@ function profile_show(userid, public){
 
                     if(!public){
                         profile_html += '<div class="col-xs-12 col-sm-4 emphasis">';
-                        profile_html += '<button class="btn btn-info btn-xs update_button"><a href = "update.html?action=account"><span class="fa fa-cog"></span> Account </a></button>';                        
+                        profile_html += '<button class="btn btn-info btn-xs update_button"><a href = "update.html?action=account"><span class="fa fa-cog"></span> Password </a></button>';                        
                         profile_html += '<button class="btn btn-info btn-xs update_button"><a href = "update.html?action=profile"><span class="fa fa-user"></span> Update </a></button>';
                         profile_html += '<button class="btn btn-danger btn-xs logout_button" onclick="logout()"><span class="fa fa-sign-out "></span> Logout </button>';
                         profile_html += '</div>';                        
@@ -828,5 +860,4 @@ function edit_profile(callBack){
             callBack(obj);
         }
     });
-    // console.log(obj);
 }

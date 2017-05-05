@@ -123,45 +123,56 @@
                                                     <div class="form-group row">
                                                       <label for="profile_name" class="col-xs-4 col-form-label">First Name</label>
                                                       <div class="col-xs-8">
-                                                        <input class="form-control" name="profile_fname" type="text" id="profile_fname">
+                                                        <input class="form-control require" name="profile_fname" type="text" id="profile_fname">
                                                       </div>
                                                     </div>
                                                     <div class="form-group row">
                                                       <label for="profile_name" class="col-xs-4 col-form-label">Last Name</label>
                                                       <div class="col-xs-8">
-                                                        <input class="form-control" name="profile_lname" type="text" id="profile_lname">
+                                                        <input class="form-control require" name="profile_lname" type="text" id="profile_lname">
                                                       </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                      <label for="profile_about" class="col-xs-4 col-form-label">About</label>
+                                                      <label for="profile_about" class="col-xs-4 col-form-label">Email</label>
                                                        <div class="col-xs-8">
-                                                        <textarea class="form-control" name="profile_about" id="profile_about" rows="3"></textarea>
+                                                        <!-- <textarea class="form-control require" name="profile_about" id="profile_about" rows="3"></textarea> -->
+                                                        <input class="form-control autocheck email require" name="email" type="email" id="profile_email" data-valid='0'>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group row">
                                                       <label for="profile_dob" class="col-xs-4 col-form-label">Date of Birth</label>
                                                       <div class="col-xs-8">
-                                                        <input class="form-control" name="profile_dob" type="text" value="Artisanal kale" id="profile_dob">
+                                                        <div class="input-group date">
+                                                            <input type="date" class="form-control"  name="profile_dob" value="12-02-2012" id="profile_dob">
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-th"></span>
+                                                            </div>
+                                                        </div>
                                                       </div>
                                                     </div>
+
                                                     <div class="form-group row">
                                                       <label for="profile_city" class="col-xs-4 col-form-label">City</label>
                                                       <div class="col-xs-8">
                                                         <input class="form-control" name="profile_city" type="text" value="Artisanal kale" id="profile_city">
                                                       </div>
                                                     </div>
+
                                                     <div class="form-group row">
                                                       <label for="profile_state" class="col-xs-4 col-form-label">State</label>
                                                       <div class="col-xs-8">
                                                         <input class="form-control" name="profile_state" type="text" value="Artisanal kale" id="profile_state">
                                                       </div>
                                                     </div>
+
                                                     <div class="form-group row">
                                                       <label for="profile_country" class="col-xs-4 col-form-label">Country</label>
                                                       <div class="col-xs-8">
                                                         <input class="form-control" name="profile_country" type="text" value="Artisanal kale" id="profile_country">
                                                       </div>
                                                     </div>
+
                                                     <div class="form-group"> 
                                                       <div class="col-xs-4">
                                                         <button type="reset" class="btn btn-default btn-xs">Reset</button>
@@ -180,27 +191,21 @@
                                             <div class="well form-container">
                                                 <form class="form" id="account_settings_form" onsubmit="update_profile(this)">
                                                   <div class="form-group  row">
-                                                    <label class="col-xs-4 col-form-label" for="email">Email:</label>
-                                                    <div class="col-xs-8">
-                                                      <input type="email" name="profile_email" class="form-control" id="email" placeholder="Enter email">
-                                                    </div>
-                                                  </div>
-                                                  <div class="form-group  row">
                                                     <label class="control-label col-xs-4" for="opwd">Old Password:</label>
                                                     <div class="col-xs-8"> 
-                                                      <input type="password" name="profile_password" class="form-control" id="opwd" placeholder="Enter password">
+                                                      <input type="password" name="profile_password" class="form-control require" id="opwd" placeholder="Enter password">
                                                     </div>
                                                   </div>
                                                   <div class="form-group  row">
                                                     <label class="control-label col-xs-4" for="pwd">New Password:</label>
                                                     <div class="col-xs-8"> 
-                                                      <input type="password" name="profile_new_password" class="form-control" id="pwd" placeholder="Enter password">
+                                                      <input type="password" name="profile_new_password" class="form-control require" id="pwd" placeholder="Enter password">
                                                     </div>
                                                   </div>
                                                   <div class="form-group row">
                                                     <label class="control-label col-xs-4" for="cpwd">Confirm Password:</label>
                                                     <div class="col-xs-8"> 
-                                                      <input type="password" name="profile_confirm_password" class="form-control" id="cpwd" placeholder="Enter password">
+                                                      <input type="password" name="profile_confirm_password" class="form-control require" id="cpwd" placeholder="Enter password">
                                                     </div>
                                                   </div>
                                                   <div class="form-group row"> 
@@ -286,7 +291,6 @@
             var profile_data;
             edit_profile(function(data){
                 $.each(data.profile_data, function (index, profile) {
-                    $('#email').val(profile.Email);
                 });
             });
             centerPlace('account_settings_form');
@@ -299,6 +303,7 @@
                 $.each(data.profile_data, function (index, profile) {
                     $('#profile_fname').val(profile.FirstName);
                     $('#profile_lname').val(profile.LastName);
+                    $('#profile_email').val(profile.Email);
                     $('#profile_about').val(profile.AboutMe);
                     $('#profile_dob').val(profile.DOB);   
                     $('#profile_city').val(profile.City);       
@@ -313,12 +318,43 @@
             $('#profile_pic').show();
             centerPlace('profile_pic_form');
         }
+
+        $('.autocheck').focusout(function(){
+            var key = this.id;
+            var value = $(this).val();
+            var email = 1;
+            $(this).attr('data-valid', '0');
+            if ($(this).hasClass('email')){
+                var email_result = validateEmail($(this).val());
+                if (!email_result){
+                    email = 0;
+                    $('#' + key).css('border', '1px solid #ff0000');
+                }
+            } if (email){
+                $.ajax({
+                    'url':url,
+                    'data':{'action':'autocheck', 'data':{'key':key, 'value':value}},
+                    'type':'post',
+                    success: function (result) {
+                        var obj = $.parseJSON(result);
+                        if (!obj.success){
+                            $('#' + key).css('border', '1px solid #ff0000');
+                            $('#' + key + '_msg').html(obj.msg);
+                        } else{
+                            $('#' + key).css('border', '1px solid #00ff00');
+                            $('#' + key).attr('data-valid', '1');
+                        }
+                    }
+                });
+            }
+        });
     });
 
     function update_profile(obj){
-        event.preventDefault();
+      event.preventDefault();
+      var valid = checkValid(obj);
+      if(valid){
         var form_data = $(obj).serialize();
-
         $.ajax({
             type: "post",
             url: url,
@@ -339,7 +375,8 @@
                 }
                 $('form').prepend(alert_html);
             }
-        });
+        });        
+      }
     }
 
     function changeProfilePic(element){
@@ -389,10 +426,6 @@
         readURL(element);
     }
 
-    // function do_crop(element){
-    //     console.log(element);
-    //     $(element).croppie();
-    // }
 
     </script>
     <!-- </script> -->
