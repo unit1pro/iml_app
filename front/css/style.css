@@ -60,23 +60,47 @@ img{
     color:#a83030 !important;
 }
 
-.overlay{
-    position: absolute;
-    background:#000;
-    opacity:0.5;
-    z-index:999;
-}
+.video_container{
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+        background: #000 !important;
+        text-align: center;
+        /*    position: fixed;
+         width: 100%;
+         height: 100%;*/
+        overflow: hidden;
+        /*max-width: 100%;*/
+    }
 
-.overlay .text-container{
-    width:100%;
-    text-align:left;
-    padding: 0 30px;
-}
+    .video_container .overlay{
+        position: absolute;
+        background:#000;
+        opacity:0.5;
+        z-index:999;
+    }
 
-.overlay .text-container h4{
-    color:#FFF;
-    text-transform:uppercase;
-}
+    .video_container .overlay .text-container{
+        width:100%;
+        text-align:left;
+        padding: 0 30px;
+    }
+
+    .video_container .overlay .text-container h4{
+        color:#FFF;
+        text-transform:uppercase;
+    }
+    #commentarea{
+        background-image:url(../img/form_bg.jpg);
+        background-repeat:repeat-x;
+        border:1px solid #d1c7ac;
+        width: 100%;
+        height: auto;
+        color:#333333;
+        padding:3px;
+        margin-right:4px;
+        margin-bottom:8px;
+        font-family:tahoma, arial, sans-serif;
+    }
 /*
 * === X X X ===
 */

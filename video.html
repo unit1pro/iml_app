@@ -139,6 +139,9 @@
         $(document).ready(function(){
             var song_id = getQueryStringValue('songId');
             videoView(song_id);
+
+            $('.video_container .overlay').width($('.video_container').width());
+            $('.video_container .overlay').height($('.video_container').height());
         
             $('.post_comment').click(function (e) {
                 var user_id = localStorage.getItem("user_id");
