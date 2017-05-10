@@ -224,11 +224,10 @@
 
                                         <div id="profile_pic">
                                             <div class="well form-container">
-                                                <div class="thumbnail profile_pre">
-                                                    <img id="blah" src="#" alt="your image" />
-                                                </div> 
                                                 <form class="form" action="" method="post" id="profile_pic_form" enctype="multipart/form-data" onsubmit="changeProfilePic(this)">
-                                                   
+                                                <div class="profile_pre">
+                                                    <img id="blah" class="img-fluid img-thumbnail" src="#" alt="your image" />
+                                                </div>
                                                   <div class="form-group row">
                                                     <input type="file" id="file" name="profile_pic" onchange="profile_preview(this)" class="upload_file">
                                                     <span class="upload_span"></span>
@@ -316,7 +315,13 @@
             $('#account_settings').hide();
             $('#update_profile').hide();
             $('#profile_pic').show();
-            centerPlace('profile_pic_form');
+            var profile_data;
+            edit_profile(function(data){
+                $.each(data.profile_data, function (index, profile) {
+                  $("#blah").attr("src", data.base_url+"uploads/images/"+profile.Photo);
+                });
+            });
+            // centerPlace('profile_pic_form');
         }
 
         $('.autocheck').focusout(function(){
@@ -417,7 +422,7 @@
             reader.onload = function (e) {
                 $('#blah').attr('src', e.target.result);
             }
-            
+             
             reader.readAsDataURL(input.files[0]);
         }
     }

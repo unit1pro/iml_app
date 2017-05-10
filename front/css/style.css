@@ -47,7 +47,7 @@ img{
 }
 .profile_pre{
     width:auto; 
-    max-height:200px;
+    /*max-height:200px;*/
 }
 .profile_pre img{
     max-width: 100%;

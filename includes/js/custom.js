@@ -366,7 +366,7 @@ function get_post(data) {
                             html += '</div>';
                             html += '<div class="layout-column layout-align-center-center" >';
                             html += '<a href = "video.html?songId=' + comments.ID + '"><img src="' + base_url + '/uploads/images/' + comments.Image + '"  height="170" onerror="myFunction(this);"></a>';
-                            html += '<p id="demo"></p>';
+                            // html += '<p id="demo"></p>';
                             html += '</div>';
                         }
                         if (comments.COMMENTS != '' && !comments.song) {
