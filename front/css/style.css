@@ -73,7 +73,7 @@ img{
     }
 
     .video_container .overlay{
-        position: absolute;
+        position: relative;
         background:#000;
         opacity:0.5;
         z-index:999;
@@ -82,14 +82,14 @@ img{
     .video_container .overlay .text-container{
         width:100%;
         text-align:left;
-        padding: 0 30px;
+        /*padding: 0 30px;*/
     }
 
     .video_container .overlay .text-container h4{
         color:#FFF;
         text-transform:uppercase;
     }
-    #commentarea{
+/*    #commentarea{
         background-image:url(../img/form_bg.jpg);
         background-repeat:repeat-x;
         border:1px solid #d1c7ac;
@@ -100,7 +100,7 @@ img{
         margin-right:4px;
         margin-bottom:8px;
         font-family:tahoma, arial, sans-serif;
-    }
+    }*/
 /*
 * === X X X ===
 */

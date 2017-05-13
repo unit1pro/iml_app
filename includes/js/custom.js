@@ -100,10 +100,11 @@ function videoView(song_ID) {
             var html = '';
             html += '<div class="flex-70 flex-xs-100 layout-column youtube-section">';
 
-            html += '<div class="video_container">'
+            // html += '<div class="top_container"';
+            html += '<div class="video_container">';
             html += '<div class="overlay">';
             html += '<div class="text-container">';
-            html += '<h4>Please choose video</h4>';
+            // html += '<h4>Please choose video</h4>';
             html += '<div class="layout-row">';
             html += '<a href = "video.html?songId=' + obj.songs_data.ID + '">';
             html += '<img src="' + obj.video_base_path + '/' + obj.songs_data.Image + '" class="album_image">';
@@ -123,6 +124,7 @@ function videoView(song_ID) {
             html += '<source src="' + obj.video_base_path + '/' + obj.songs_data.Song_File_Name + '" type="video/mp4">';
             html += '</video>';
             html += '</div>';
+            // html += '</div>';
             html += '<div class="layout-column">';
             html += '<div class="layout-row layout-xs-column youtube-user-detail">';
             html += '<div class="flex-100 flex-xs-100 layout-column layout-align-start-start">';
@@ -168,7 +170,7 @@ function videoView(song_ID) {
             if (obj.songs_data.total_dislikes) {
                 html += obj.songs_data.total_dislikes + ' Dislikes';
             }
-            html += '</span></div>';
+            html += '</  ></div>';
             html += '</div>';
 
             html += '</div>';
@@ -259,15 +261,15 @@ function videoView(song_ID) {
             $('#video_page_footer').html(html1);
             $('#video_page_comment').append(commentHtml);
 
-            $('.album_image').each(function () {
+            // $('.album_image').each(function () {
 
-                var width = $(this).width();
-                var height = width * 9 / 16;
-                if (height != 0 && width != 0) {
-                    $(this).attr('width', width);
-                    $(this).attr('height', height);
-                }
-            });
+            //     var width = $(this).width();
+            //     var height = width * 9 / 16;
+            //     if (height != 0 && width != 0) {
+            //         $(this).attr('width', width);
+            //         $(this).attr('height', height);
+            //     }
+            // });
 
 
             var views = $('#views').html();
@@ -276,13 +278,18 @@ function videoView(song_ID) {
 
             post_hit_count({'new_view': new_view, 'song_id': song_ID});
 
-            $('.overlay').width($('.video_container').width());
-            $('.overlay').height($('.video_container').height());
-
             setTimeout(function(){
                  $('.overlay').hide();
                  $('video')[0].play();
             }, 5000);
+
+            console.log($('.video_container').height());
+
+
+            // $('.overlay').width($('.video_container').width());
+            // $('.overlay').height($('.video_container').height());
+            $('.overlay').width(100);
+            $('.overlay').height(100);
         }
     });
 }
