@@ -170,7 +170,7 @@ function videoView(song_ID) {
             if (obj.songs_data.total_dislikes) {
                 html += obj.songs_data.total_dislikes + ' Dislikes';
             }
-            html += '</  ></div>';
+            html += '</div></div>';
             html += '</div>';
 
             html += '</div>';
@@ -283,7 +283,7 @@ function videoView(song_ID) {
                  $('video')[0].play();
             }, 5000);
 
-            console.log($('.video_container').height());
+            // console.log($('.video_container').height());
 
 
             // $('.overlay').width($('.video_container').width());
