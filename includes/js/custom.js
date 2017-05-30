@@ -8,7 +8,7 @@ function getQueryStringValue(key) {
     return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
-function get_data(page) {
+function get_data(page) { 
     if (page == 0) {
         get_videos();
     } else if (page == 1) {
@@ -105,11 +105,11 @@ function videoView(song_ID) {
             html += '<div class="overlay">';
             html += '<div class="text-container">';
             // html += '<h4>Please choose video</h4>';
-            html += '<div class="layout-row">';
+            // html += '<div class="layout-row">';
             html += '<a href = "video.html?songId=' + obj.songs_data.ID + '">';
             html += '<img src="' + obj.video_base_path + '/' + obj.songs_data.Image + '" class="album_image">';
             html += '</a>';
-            html += '</div>';
+            // html += '</div>';
             html += '</div>';
             $.each(obj.allVideos, function (index, allVideo) {
                 html += '<div class="layout-row">';
@@ -191,6 +191,7 @@ function videoView(song_ID) {
                 html1 += '<div class="layout-column user-detail">';
                 html1 += '<span class="user-name">' + artistVideo.Song_Title + '</span>';
                 html1 += '</div>';
+                
             });
             html1 += '<a href="javascript:void(0);" class="moreVideo" onclick="moreVideos(this);"><i class="fa fa-angle-down"></i></a>';
             html1 += '<a href="javascript:void(0);" class="lessVideo" onclick="lessVideos(this);" style="display:none"><i class="fa fa-angle-up"></i></a>';
@@ -407,7 +408,7 @@ function get_post(data) {
                         html += '<div class="layout-row action-wrapper">';
                         var response = comments.user_response;
                         if (comments.song) {
-                            if (response == '1') {
+                            if (response === 1) {
                                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
                             } else {
                                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="1" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-up"></i></a>';
@@ -419,7 +420,7 @@ function get_post(data) {
                             html += '</span>';
                             html += '</div>';
                         } else {
-                            if (response == '1') {
+                            if (response === 1) {
                                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="1" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-up liked"></i></a>';
                             } else {
                                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="like_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="1" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-up"></i></a>';
@@ -432,7 +433,7 @@ function get_post(data) {
                             html += '</div>';
                         }
                         if (comments.song) {
-                            if (response == 2) {
+                            if (response === 2) {
                                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="2" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
                             } else {
                                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.ID + ')" data-post_type="1" data-response_type="2" data-commentid="' + comments.ID + '"><i class="fa fa-thumbs-down"></i></a>';
@@ -445,7 +446,7 @@ function get_post(data) {
                             html += '</span>';
                             html += ' </div>';
                         } else {
-                            if (response == 2) {
+                            if (response === 2) {
                                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="2" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-down disliked"></i></a>';
                             } else {
                                 html += '<div class="layout-row layout-align-start-center flex-20"><a href="javascript:void(0)" class="dislike_button" onclick="likeFunction(this, ' + comments.COM_ID + ')" data-post_type="2" data-response_type="2" data-commentid="' + comments.COM_ID + '"><i class="fa fa-thumbs-down"></i></a>';
@@ -640,6 +641,7 @@ function likeFunction(element, commentId) {
     var post_type = $(element).data('post_type');
     var response_type = $(element).data('response_type');
     var userid = localStorage.getItem("user_id");
+        // console.log("comment_id"+commentId+"&post_type"+post_type+"&response_type"+response_type+"&userid"+userid);
     if (userid) {
         $.ajax({
             'url': url,
@@ -656,7 +658,6 @@ function likeFunction(element, commentId) {
                 } else {
                     $(element).find('i').removeClass('liked');
                     $(element).find('i').removeClass('disliked');
-
                 }
                 if (obj.likeCount != 0) {
                     $(element).parent().parent().find(".like_count_span").html(obj.likeCount + ' Likes');
@@ -681,7 +682,7 @@ function commentSubmit(ele) {
     if (userid) {
         var comment = $(ele).parent().find('textarea').val();
         var post_id = $(ele).parent().parent().parent().attr('data-post_id');
-        var song_id = $(ele).parent().parent().attr('data-song_id');
+        var song_id = $(ele).parent().parent().parent().attr('data-song_id');
         if (typeof post_id === "undefined") {
             var data = {'action': 'comment', 'data': {'parent_id': -1, 'COMMENTS': comment, 'Song_id': song_id, 'userid': userid}};
         } else {
@@ -694,7 +695,6 @@ function commentSubmit(ele) {
             success: function (result) {
 
                 var obj = $.parseJSON(result);
-                    console.log(obj);
                 var base_url = obj.base_url;
                 var commentHtml = '';
                 if (obj.success) {
